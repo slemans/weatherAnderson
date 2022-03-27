@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F2F3ACA27F0E939008D45FA /* ServiceApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3AC927F0E939008D45FA /* ServiceApiManager.swift */; };
+		7F2F3AD427F0FAE4008D45FA /* CityWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3AD327F0FAE4008D45FA /* CityWeather.swift */; };
+		7F2F3AD627F0FAFB008D45FA /* CityWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3AD527F0FAFA008D45FA /* CityWeatherData.swift */; };
 		7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */; };
 		7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5627ED042100A89420 /* TableViewCell.swift */; };
 		7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFB95B927E9BF42002B01FB /* AppDelegate.swift */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F2F3AC927F0E939008D45FA /* ServiceApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceApiManager.swift; sourceTree = "<group>"; };
+		7F2F3AD327F0FAE4008D45FA /* CityWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeather.swift; sourceTree = "<group>"; };
+		7F2F3AD527F0FAFA008D45FA /* CityWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherData.swift; sourceTree = "<group>"; };
 		7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		7FED2D5627ED042100A89420 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		7FFB95B627E9BF42002B01FB /* WeatherAnderson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAnderson.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F2F3AC827F0E834008D45FA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7F2F3AC927F0E939008D45FA /* ServiceApiManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		7FFB95AD27E9BF42002B01FB = {
 			isa = PBXGroup;
 			children = (
@@ -66,10 +80,11 @@
 		7FFB95B827E9BF42002B01FB /* WeatherAnderson */ = {
 			isa = PBXGroup;
 			children = (
+				7F2F3AC827F0E834008D45FA /* Service */,
 				7FFB95DA27EA1EF0002B01FB /* Extension */,
 				7FFB95D027E9C02D002B01FB /* Models */,
-				7FFB95D327E9C054002B01FB /* Views */,
 				7FFB95D127E9C039002B01FB /* Controllers */,
+				7FFB95D327E9C054002B01FB /* Views */,
 				7FFB95D427E9C05D002B01FB /* AppDelegat */,
 				7FFB95D527E9C066002B01FB /* Resources */,
 				7FFB95CA27E9BF48002B01FB /* Info.plist */,
@@ -80,6 +95,8 @@
 		7FFB95D027E9C02D002B01FB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7F2F3AD327F0FAE4008D45FA /* CityWeather.swift */,
+				7F2F3AD527F0FAFA008D45FA /* CityWeatherData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,12 +220,15 @@
 			files = (
 				7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */,
 				7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */,
+				7F2F3ACA27F0E939008D45FA /* ServiceApiManager.swift in Sources */,
 				7FFB95DC27EA1F0B002B01FB /* GradientView.swift in Sources */,
 				7FFB95DE27EA2F59002B01FB /* UIView.swift in Sources */,
 				7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */,
+				7F2F3AD627F0FAFB008D45FA /* CityWeatherData.swift in Sources */,
 				7FFB95D927EA196C002B01FB /* MainViewController.swift in Sources */,
 				7FFB95C427E9BF43002B01FB /* WeatherAnderson.xcdatamodeld in Sources */,
 				7FFB95BC27E9BF42002B01FB /* SceneDelegate.swift in Sources */,
+				7F2F3AD427F0FAE4008D45FA /* CityWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

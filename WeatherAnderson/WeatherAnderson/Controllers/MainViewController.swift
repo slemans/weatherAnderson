@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreLocation
+import CoreData
 
 class MainViewController: UIViewController {
 
@@ -16,11 +18,23 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stackViewForecast: UIStackView!
     
+    let serviceApiManager = ServiceApiManager()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
+        serviceApiManager.performRequest { cityWeather in
+            print(cityWeather)
+        }
         
     }
+    
+
+    
+    
+    
+    
     func startSetting(){
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -56,7 +70,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 10
+        return 7
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
