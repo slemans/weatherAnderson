@@ -18,14 +18,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yLy-km-mfT">
-                                <rect key="frame" x="20" y="68" width="374" height="122"/>
+                                <rect key="frame" x="20" y="68" width="374" height="114.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A3S-CJ-XPB">
-                                        <rect key="frame" x="0.0" y="0.0" width="123" height="122"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="123" height="114.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODN-V4-A4t">
-                                                <rect key="frame" x="10" y="8" width="103" height="114"/>
-                                                <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="76"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODN-V4-A4t">
+                                                <rect key="frame" x="0.5" y="8" width="122.5" height="106.5"/>
+                                                <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="71"/>
                                                 <color key="textColor" name="MyColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -33,13 +33,13 @@
                                         <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="DtA-Qo-Z5O">
-                                        <rect key="frame" x="128" y="0.0" width="246" height="122"/>
+                                        <rect key="frame" x="128" y="0.0" width="246" height="114.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="V8h-cj-yIP">
-                                                <rect key="frame" x="5" y="0.0" width="221" height="71"/>
+                                                <rect key="frame" x="5" y="0.0" width="221" height="63.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloudy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fK0-Cm-Vco">
-                                                        <rect key="frame" x="8" y="0.0" width="205" height="71"/>
+                                                        <rect key="frame" x="8" y="0.0" width="205" height="63.5"/>
                                                         <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="40"/>
                                                         <color key="textColor" name="MyColor"/>
                                                         <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1dy-WI-Lnr">
-                                                <rect key="frame" x="5" y="72" width="221" height="50"/>
+                                                <rect key="frame" x="5" y="64.5" width="221" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="West Jakarta" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SY7-n8-azW">
                                                         <rect key="frame" x="8" y="8" width="203" height="34"/>
@@ -369,12 +369,18 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
+                        <outlet property="cityLabel" destination="SY7-n8-azW" id="w8S-QF-fsA"/>
                         <outlet property="collectionStackView" destination="FWj-dc-iIf" id="2yG-Hm-QOA"/>
                         <outlet property="collectionView" destination="6bd-YJ-N0H" id="Gff-c0-f4z"/>
+                        <outlet property="dayWetherLabel" destination="zsd-Nw-s1U" id="CjG-hT-mld"/>
+                        <outlet property="descriptionWeatherLabelMain" destination="fK0-Cm-Vco" id="FTd-aU-fa1"/>
+                        <outlet property="iconMainWether" destination="HNP-aG-tSp" id="gEa-LV-ZH5"/>
                         <outlet property="mainViewMy" destination="kFr-Os-soF" id="ZuF-zr-2X1"/>
                         <outlet property="stackViewForecast" destination="nZx-LY-OxI" id="BOb-W2-Tcf"/>
                         <outlet property="tableView" destination="yPI-Vl-ymX" id="P9D-YV-zFM"/>
+                        <outlet property="temperatureLabelMain" destination="ODN-V4-A4t" id="3p2-ur-Rz1"/>
                         <outlet property="temperatureStackView" destination="A3S-CJ-XPB" id="jdC-Qi-m98"/>
+                        <outlet property="timeWetherLabel" destination="WgE-xo-KMh" id="0mG-fE-ls9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsJ-yK-Ld0" sceneMemberID="firstResponder"/>
