@@ -31,11 +31,15 @@ struct Daily: Decodable {
 
 struct Weather: Codable {
     let id: Int
+    var systemIconNameString: String {
+        let icon = CityWeatherIcon(CityWeatherIcon: id)
+        return icon.systemIconNameString
+    }
     let weatherDescription: String
-        enum CodingKeys: String, CodingKey {
-            case id
-            case weatherDescription = "description"
-        }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case weatherDescription = "description"
+    }
 }
 
 // MARK: - Temp

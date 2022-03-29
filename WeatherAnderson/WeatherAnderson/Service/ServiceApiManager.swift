@@ -11,56 +11,64 @@ import SwiftyJSON
 class ServiceApiManager {
     let apiKey = "7c869b6df2587f132c69a4700c43631f"
 
+    enum TypeModel {
+        case CityWeatherCity
+        case CityWeatherLocation
+    }
 
-
-    enum RequstType {
+    enum RequestType {
         case cityName(city: String)
         case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
     }
 
-    func fetchCityWeather(forRequestType: RequstType) -> String {
+    func fetchCityWeather(forRequestType: RequestType) -> String {
         var urlString = ""
         switch forRequestType {
         case let .cityName(city):
-//            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&exclude=hourly,daily&units=metric&appid=\(apiKey)"
 //            демо на день
             urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&lang=ru&appid=\(apiKey)"
-            
-            // демо coordinat
-//            urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,alerts&units=metric&lang=ru&appid=\(apiKey)"
-            
         case let .coordinate(latitude, longitude):
-            urlString =
-            "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&exclude=minutely,alerts&units=metric&lang=ru&appid=\(apiKey)"
+            urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&exclude=minutely,alerts&units=metric&lang=ru&appid=\(apiKey)"
         }
         return urlString
     }
 
-    public func performRequest(completionHandler: @escaping (CityWeather) -> Void) { // fileprivate
+    func performRequest(typeWeather: TypeModel, completionHandler: @escaping (CityWeather?, CityWeatherLocation?) -> Void) { // fileprivate
 
-        let url = URL(string: fetchCityWeather(forRequestType: .cityName(city: "Minsk")))
+//        let url = URL(string: fetchCityWeather(forRequestType: .cityName(city: "Minsk")))
+        let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: 33.44, longitude: -94.04)))
 
         guard let url = url else { return }
 
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, _, _ in
-            if let data = data, let cityWeather = self.parseJSON(withData: data) {
-                completionHandler(cityWeather)
+            if let data = data,
+                let cityWeather = self.parseJSON(withData: data, typeWeather: typeWeather) {
+                completionHandler(cityWeather.0, cityWeather.1)
             }
         }
         task.resume()
+
     }
 
-    public func parseJSON(withData data: Data) -> CityWeather? {
+    func parseJSON(withData data: Data, typeWeather: TypeModel) -> (CityWeather?, CityWeatherLocation?)? {
         let decoder = JSONDecoder()
         do {
-            let cityWeatherData = try decoder.decode(CityWeatherCity.self, from: data)
-            guard let cityWeathers = CityWeather(CityWeatherData: cityWeatherData) else { return nil }
-            return cityWeathers
+            switch typeWeather {
+            case .CityWeatherCity:
+                let weatherData = try decoder.decode(CityWeatherCity.self, from: data)
+                guard let cityWeathers = CityWeather(CityWeatherData: weatherData) else { return (nil, nil) }
+                return (cityWeathers, nil)
+            case .CityWeatherLocation:
+                
+                let weatherData = try decoder.decode(CityWeatherCoordinate.self, from: data)
+                guard let weathers = CityWeatherLocation(weatherLocation: weatherData) else { return (nil, nil) }
+                return (nil, weathers)
+            }
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        return nil
+        return (nil, nil)
     }
 
 

@@ -22,44 +22,40 @@ class MainViewController: UIViewController {
     @IBOutlet weak var iconMainWether: UIImageView!
     @IBOutlet weak var descriptionWeatherLabelMain: UILabel!
     @IBOutlet weak var dayWetherLabel: UILabel!
-
     @IBOutlet weak var timeWetherLabel: UILabel!
+    
     let serviceApiManager = ServiceApiManager()
+    
     var weatherCity: CityWeather?
+    var weatherLocationGet: CityWeatherLocation?
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
-        serviceApiManager.performRequest { cityWeather in
-            self.weatherCity = cityWeather
+
+        serviceApiManager.performRequest(typeWeather: .CityWeatherLocation) { weatherCity, weatherLocation in
+            self.weatherCity = weatherCity
+            self.weatherLocationGet = weatherLocation
+            
+//            guard let weatherCity = weatherCity else { return }
+            guard let weatherLocation = weatherLocation else { return }
+            
+            
             DispatchQueue.main.async {
-                self.fillMainWether(weather: cityWeather)
+//                self.fillMainWether(weather: weatherCity)
+                self.fillWetherLocal(weather: weatherLocation)
             }
         }
     }
 
-    private func getDateNow(daily: Int) -> (String, String) {
-        let date = NSDate(timeIntervalSince1970: TimeInterval(daily))
-        let dateFormater = DateFormatter()
-        dateFormater.locale = Locale(identifier: "ru-RUS")
-        dateFormater.setLocalizedDateFormatFromTemplate("MMM d, yyyy")
-        let dateNew = date as Date
-        let weekday = dateFormater.weekdaySymbols[Calendar.current.component(.weekday, from: Date()) - 1].firstUppercased
-        let dateDescription = dateFormater.string(from: dateNew)
-        return (weekday, dateDescription)
-    }
-
-
-    private func fillMainWether(weather: CityWeather) {
+    func fillWetherLocal(weather: CityWeatherLocation) {
         temperatureLabelMain.text = weather.temperatureString
-        print(weather.temperatureString)
-        cityLabel.text = weather.cityName
-        descriptionWeatherLabelMain.text = weather.weatherDescription.firstUppercased
-        iconMainWether.image = UIImage(named: weather.systemIconNameString)
-        dayWetherLabel.text = getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = getDateNow(daily: weather.dt).1
     }
+
+
+
+
 
 
 
@@ -76,6 +72,29 @@ class MainViewController: UIViewController {
 
 
 
+
+}
+
+// setting weatherCity
+extension MainViewController {
+    private func fillMainWether(weather: CityWeather) {
+        temperatureLabelMain.text = weather.temperatureString
+        cityLabel.text = weather.cityName
+        descriptionWeatherLabelMain.text = weather.weatherDescription.firstUppercased
+        iconMainWether.image = UIImage(named: weather.systemIconNameString)
+        dayWetherLabel.text = getDateNow(daily: weather.dt).0
+        timeWetherLabel.text = getDateNow(daily: weather.dt).1
+    }
+    private func getDateNow(daily: Int) -> (String, String) {
+        let date = NSDate(timeIntervalSince1970: TimeInterval(daily))
+        let dateFormater = DateFormatter()
+        dateFormater.locale = Locale(identifier: "ru-RUS")
+        dateFormater.setLocalizedDateFormatFromTemplate("MMM d, yyyy")
+        let dateNew = date as Date
+        let weekday = dateFormater.weekdaySymbols[Calendar.current.component(.weekday, from: Date()) - 1].firstUppercased
+        let dateDescription = dateFormater.string(from: dateNew)
+        return (weekday, dateDescription)
+    }
 
 }
 
