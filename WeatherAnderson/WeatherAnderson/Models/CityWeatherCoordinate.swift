@@ -17,7 +17,10 @@ struct CityWeatherCoordinate: Decodable {
 
 // MARK: - Current
 struct Current: Decodable {
-    let temp: Double
+    private let temp: Double
+    var temperatureString: String {
+        return String(format: "%.1f", temp) + "°"
+    }
     let weather: [Weather]
     let dt: Int
 }

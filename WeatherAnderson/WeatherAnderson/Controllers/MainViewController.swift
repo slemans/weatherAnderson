@@ -27,7 +27,9 @@ class MainViewController: UIViewController {
     let serviceApiManager = ServiceApiManager()
     
     var weatherCity: CityWeather?
-    var weatherLocationGet: CityWeatherLocation?
+//    var weatherLocationGet: CityWeatherLocation?
+    var hourlyWeather: [Current] = []
+    var dailyWeather: [Daily] = []
 
 
     override func viewDidLoad() {
@@ -36,24 +38,37 @@ class MainViewController: UIViewController {
 
         serviceApiManager.performRequest(typeWeather: .CityWeatherLocation) { weatherCity, weatherLocation in
             self.weatherCity = weatherCity
-            self.weatherLocationGet = weatherLocation
+//            self.weatherLocationGet = weatherLocation
             
 //            guard let weatherCity = weatherCity else { return }
             guard let weatherLocation = weatherLocation else { return }
-            
-            
+            self.hourlyWeather = weatherLocation.hourly
+            self.dailyWeather = weatherLocation.daily
             DispatchQueue.main.async {
 //                self.fillMainWether(weather: weatherCity)
                 self.fillWetherLocal(weather: weatherLocation)
+                self.collectionView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
 
     func fillWetherLocal(weather: CityWeatherLocation) {
-        temperatureLabelMain.text = weather.temperatureString
+        temperatureLabelMain.text = weather.temperature
+        iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
+        cityLabel.text = weather.nameCity
+        descriptionWeatherLabelMain.text = weather.current.weather.first?.weatherDescription.firstUppercased
+        dayWetherLabel.text = getDateNow(daily: weather.dt).0
+        timeWetherLabel.text = getDateNow(daily: weather.dt).1
     }
 
-
+    func getDateNow(time: Current) -> String {
+        let date = NSDate(timeIntervalSince1970: TimeInterval(time.dt))
+        let dateNew = date as Date
+        let calendar = Calendar.current
+        let time = calendar.component(.hour, from: dateNew)
+        return String(time)
+    }
 
 
 
@@ -100,24 +115,21 @@ extension MainViewController {
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return 10
+        return hourlyWeather.count - 24
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
-//        let dayHourly = hourlyWeather[indexPath.row]
-//        let dateStrings = getDateNow(daily: dayHourly)
-//        cell.timeLb.text = dateStrings
-//        cell.fenchHourly(forWeather: dayHourly)
-        cell.temperatureLb.text = "10"
-        cell.timeLb.text = "10:00"
+        let dayHourly = hourlyWeather[indexPath.row]
+        cell.timeLb.text = getDateNow(time: dayHourly)
+        cell.fetchHourly(forWeather: dayHourly)
         return cell
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 7
+        return dailyWeather.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

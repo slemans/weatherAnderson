@@ -36,7 +36,7 @@ class ServiceApiManager {
     func performRequest(typeWeather: TypeModel, completionHandler: @escaping (CityWeather?, CityWeatherLocation?) -> Void) { // fileprivate
 
 //        let url = URL(string: fetchCityWeather(forRequestType: .cityName(city: "Minsk")))
-        let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: 33.44, longitude: -94.04)))
+        let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: 53.9, longitude: 27.5667)))
 
         guard let url = url else { return }
 

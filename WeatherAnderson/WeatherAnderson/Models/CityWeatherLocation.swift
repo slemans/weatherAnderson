@@ -8,16 +8,17 @@
 import Foundation
 
 struct CityWeatherLocation {
-    private let temperature: Double
+    let temperature: String
+    private let timezone: String
     let hourly: [Current]
     let daily: [Daily]
-    let timezone: String
+    var nameCity: String {
+        var myStringArr = timezone.components(separatedBy: "/")
+        return myStringArr[1]
+    }
     let lat, lon: Double
     let current: Current
     let dt: Int // Время расчета данных
-    var temperatureString: String {
-        return String(format: "%.1f", temperature) + "°"
-    }
     
     init?(weatherLocation weather: CityWeatherCoordinate) {
         hourly = weather.hourly
@@ -26,7 +27,7 @@ struct CityWeatherLocation {
         lat = weather.lat
         lon = weather.lon
         current = weather.current
-        temperature = weather.current.temp
+        temperature = weather.current.temperatureString
         dt = weather.current.dt
     }
 }
