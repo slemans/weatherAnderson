@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     let serviceApiManager = ServiceApiManager()
     
     var weatherCity: CityWeather?
+    
 //    var weatherLocationGet: CityWeatherLocation?
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
@@ -51,6 +52,7 @@ class MainViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
+     
     }
 
     func fillWetherLocal(weather: CityWeatherLocation) {
@@ -134,7 +136,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! TableViewCell
-
+        let day = dailyWeather[indexPath.row]
+        cell.fetchDaily(forWeather: day)
         return cell
     }
 }

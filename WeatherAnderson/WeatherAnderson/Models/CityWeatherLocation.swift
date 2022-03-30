@@ -13,7 +13,7 @@ struct CityWeatherLocation {
     let hourly: [Current]
     let daily: [Daily]
     var nameCity: String {
-        var myStringArr = timezone.components(separatedBy: "/")
+        let myStringArr = timezone.components(separatedBy: "/")
         return myStringArr[1]
     }
     let lat, lon: Double

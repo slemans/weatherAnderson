@@ -13,16 +13,22 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var temperatureLb: UILabel!
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var dayLb: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+
+    func fetchDaily(forWeather weatherDaily: Daily?) {
+        guard let weatherDaily = weatherDaily else { return }
+        imageIcon.image = UIImage(named: weatherDaily.weather.first!.systemIconNameString)
+
+        dayLb.text = getDateNow(daily: weatherDaily.dt)
+        temperatureLb.text = weatherDaily.temp.temperatureStringMinMax
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func getDateNow(daily: Int) -> String {
+        let date = NSDate(timeIntervalSince1970: TimeInterval(daily))
+        let dateFormater = DateFormatter()
+        dateFormater.locale = Locale(identifier: "ru-RUS")
+        let dateNew = date as Date
+        let weekday = dateFormater.weekdaySymbols[Calendar.current.component(.weekday, from: dateNew) - 1].firstUppercased
+        return weekday
     }
 
 }

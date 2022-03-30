@@ -48,4 +48,7 @@ struct Weather: Codable {
 // MARK: - Temp
 struct Temp: Codable {
     let max, min: Double
+    var temperatureStringMinMax: String {
+        return String(format: "%.1f", min) + "°" + " / " + String(format: "%.1f", max) + "°"
+    }
 }
