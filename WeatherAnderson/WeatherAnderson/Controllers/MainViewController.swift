@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var descriptionWeatherLabelMain: UILabel!
     @IBOutlet weak var dayWetherLabel: UILabel!
     @IBOutlet weak var timeWetherLabel: UILabel!
+    @IBOutlet weak var stackViewCollectionViewTwo: UIStackView!
     
     let serviceApiManager = ServiceApiManager()
     
@@ -84,13 +85,19 @@ class MainViewController: UIViewController {
         tableView.separatorColor = .white
         temperatureStackView.addRightBorderWithColor(color: .white, width: 1)
         stackViewForecast.addBottomBorderWithColor(color: .white, width: 1)
-
+        stackViewCollectionViewTwo.addBottomBorderWithColor(color: .white, width: 1)
     }
 
 
 
 
 }
+// setting weatherLocal
+extension MainViewController {
+    
+}
+
+
 
 // setting weatherCity
 extension MainViewController {
