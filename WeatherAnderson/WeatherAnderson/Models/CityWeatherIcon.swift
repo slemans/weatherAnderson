@@ -8,7 +8,7 @@
 import Foundation
 
 struct CityWeatherIcon {
-    let conditionCode: Int
+    private let conditionCode: Int
     var systemIconNameString: String {
         switch conditionCode {
         case 200 ... 232: return "10.png"

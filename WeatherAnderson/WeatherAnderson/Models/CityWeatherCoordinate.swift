@@ -18,11 +18,22 @@ struct CityWeatherCoordinate: Decodable {
 // MARK: - Current
 struct Current: Decodable {
     private let temp: Double
-    var temperatureString: String {
-        return String(format: "%.1f", temp) + "°"
-    }
-    let weather: [Weather]
+    private let feels: Float
+    private let pressure, clouds, humidity, visibility: Int
     let dt: Int
+    let sunset, sunrise: Int?
+    var temperatureString: String { return String(format: "%.1f", temp) + "°" }
+    var feelString: String { return String(format: "%.1f", feels) + "°" }
+    var pressureString: String { return "\(pressure) гПа" }
+    var cloudsString: String { return "\(clouds)%" }
+    var humidityString: String { return "\(humidity)%" }
+    var visibilityString: String { return "\(humidity) км." }
+    let weather: [Weather]
+    enum CodingKeys: String, CodingKey {
+        case feels = "feels_like"
+        case dt, temp, weather, pressure, clouds, humidity, visibility
+        case sunset, sunrise
+    }
 }
 
 // MARK: - Daily
@@ -47,7 +58,7 @@ struct Weather: Codable {
 
 // MARK: - Temp
 struct Temp: Codable {
-    let max, min: Double
+    private let max, min: Double
     var temperatureStringMinMax: String {
         return String(format: "%.1f", min) + "°" + " / " + String(format: "%.1f", max) + "°"
     }

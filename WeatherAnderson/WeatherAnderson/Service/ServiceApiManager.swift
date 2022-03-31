@@ -60,7 +60,6 @@ class ServiceApiManager {
                 guard let cityWeathers = CityWeather(CityWeatherData: weatherData) else { return (nil, nil) }
                 return (cityWeathers, nil)
             case .CityWeatherLocation:
-                
                 let weatherData = try decoder.decode(CityWeatherCoordinate.self, from: data)
                 guard let weathers = CityWeatherLocation(weatherLocation: weatherData) else { return (nil, nil) }
                 return (nil, weathers)

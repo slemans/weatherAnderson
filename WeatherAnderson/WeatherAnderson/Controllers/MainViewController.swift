@@ -24,11 +24,19 @@ class MainViewController: UIViewController {
     @IBOutlet weak var dayWetherLabel: UILabel!
     @IBOutlet weak var timeWetherLabel: UILabel!
     @IBOutlet weak var stackViewCollectionViewTwo: UIStackView!
+    @IBOutlet weak var feelLike: UILabel!
+    @IBOutlet weak var pressureLb: UILabel!
+    @IBOutlet weak var cloudsLb: UILabel!
+    @IBOutlet weak var humidity: UILabel!
+    @IBOutlet weak var visibilityLb: UILabel!
+    @IBOutlet weak var stackViewLast: UIStackView!
     
+    @IBOutlet weak var sunDownLb: UILabel!
+    @IBOutlet weak var sunUpLb: UILabel!
     let serviceApiManager = ServiceApiManager()
-    
+
     var weatherCity: CityWeather?
-    
+
 //    var weatherLocationGet: CityWeatherLocation?
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
@@ -41,7 +49,7 @@ class MainViewController: UIViewController {
         serviceApiManager.performRequest(typeWeather: .CityWeatherLocation) { weatherCity, weatherLocation in
             self.weatherCity = weatherCity
 //            self.weatherLocationGet = weatherLocation
-            
+
 //            guard let weatherCity = weatherCity else { return }
             guard let weatherLocation = weatherLocation else { return }
             self.hourlyWeather = weatherLocation.hourly
@@ -53,29 +61,8 @@ class MainViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
-     
+
     }
-
-    func fillWetherLocal(weather: CityWeatherLocation) {
-        temperatureLabelMain.text = weather.temperature
-        iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
-        cityLabel.text = weather.nameCity
-        descriptionWeatherLabelMain.text = weather.current.weather.first?.weatherDescription.firstUppercased
-        dayWetherLabel.text = getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = getDateNow(daily: weather.dt).1
-    }
-
-    func getDateNow(time: Current) -> String {
-        let date = NSDate(timeIntervalSince1970: TimeInterval(time.dt))
-        let dateNew = date as Date
-        let calendar = Calendar.current
-        let time = calendar.component(.hour, from: dateNew)
-        return String(time)
-    }
-
-
-
-
 
     private func startSetting() {
         collectionView.dataSource = self
@@ -86,6 +73,7 @@ class MainViewController: UIViewController {
         temperatureStackView.addRightBorderWithColor(color: .white, width: 1)
         stackViewForecast.addBottomBorderWithColor(color: .white, width: 1)
         stackViewCollectionViewTwo.addBottomBorderWithColor(color: .white, width: 1)
+        stackViewLast.addBottomBorderWithColor(color: .white, width: 1)
     }
 
 
@@ -94,7 +82,31 @@ class MainViewController: UIViewController {
 }
 // setting weatherLocal
 extension MainViewController {
-    
+    private func getSunTime(time: Int?, type: Bool) -> String {
+        guard let time = time else { return " Нет данных "}
+        let date = NSDate(timeIntervalSince1970: TimeInterval(time))
+        let dateNew = date as Date
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: dateNew)
+        let minutes = calendar.component(.minute, from: dateNew)
+        let wordLast = type ? "Восход" : "Закат"
+            return "\(hour):\(minutes) \n \(wordLast)"
+    }
+    private func fillWetherLocal(weather: CityWeatherLocation) {
+        temperatureLabelMain.text = weather.temperature
+        iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
+        cityLabel.text = weather.nameCity
+        descriptionWeatherLabelMain.text = weather.current.weather.first?.weatherDescription.firstUppercased
+        dayWetherLabel.text = getDateNow(daily: weather.dt).0
+        timeWetherLabel.text = getDateNow(daily: weather.dt).1
+        feelLike.text = weather.current.feelString
+        pressureLb.text = weather.current.pressureString
+        cloudsLb.text = weather.current.cloudsString
+        visibilityLb.text = weather.current.visibilityString
+        humidity.text = weather.current.humidityString
+        sunUpLb.text = getSunTime(time: weather.current.sunrise, type: true)
+        sunDownLb.text = getSunTime(time: weather.current.sunset, type: false)
+    }
 }
 
 
@@ -133,6 +145,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.timeLb.text = getDateNow(time: dayHourly)
         cell.fetchHourly(forWeather: dayHourly)
         return cell
+    }
+    private func getDateNow(time: Current) -> String {
+        let date = NSDate(timeIntervalSince1970: TimeInterval(time.dt))
+        let dateNew = date as Date
+        let calendar = Calendar.current
+        let time = calendar.component(.hour, from: dateNew)
+        return String(time)
     }
 }
 
