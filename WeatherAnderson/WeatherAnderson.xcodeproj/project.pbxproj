@@ -15,6 +15,7 @@
 		7F2F3ADD27F24915008D45FA /* StringProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3ADC27F24914008D45FA /* StringProtocol.swift */; };
 		7F7DBF8427F37AB900270B98 /* CityWeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7DBF8327F37AB900270B98 /* CityWeatherLocation.swift */; };
 		7F7DBF8627F3978900270B98 /* CityWeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7DBF8527F3978900270B98 /* CityWeatherIcon.swift */; };
+		7F9194B027FB70A6005C1125 /* ServiceWorkWithTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9194AF27FB70A6005C1125 /* ServiceWorkWithTime.swift */; };
 		7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */; };
 		7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5627ED042100A89420 /* TableViewCell.swift */; };
 		7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFB95B927E9BF42002B01FB /* AppDelegate.swift */; };
@@ -36,6 +37,7 @@
 		7F2F3ADC27F24914008D45FA /* StringProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocol.swift; sourceTree = "<group>"; };
 		7F7DBF8327F37AB900270B98 /* CityWeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherLocation.swift; sourceTree = "<group>"; };
 		7F7DBF8527F3978900270B98 /* CityWeatherIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherIcon.swift; sourceTree = "<group>"; };
+		7F9194AF27FB70A6005C1125 /* ServiceWorkWithTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceWorkWithTime.swift; sourceTree = "<group>"; };
 		7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		7FED2D5627ED042100A89420 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		7FFB95B627E9BF42002B01FB /* WeatherAnderson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAnderson.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				7F2F3AC927F0E939008D45FA /* ServiceApiManager.swift */,
+				7F9194AF27FB70A6005C1125 /* ServiceWorkWithTime.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */,
 				7F2F3ADD27F24915008D45FA /* StringProtocol.swift in Sources */,
 				7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */,
+				7F9194B027FB70A6005C1125 /* ServiceWorkWithTime.swift in Sources */,
 				7F2F3ACA27F0E939008D45FA /* ServiceApiManager.swift in Sources */,
 				7FFB95DC27EA1F0B002B01FB /* GradientView.swift in Sources */,
 				7FFB95DE27EA2F59002B01FB /* UIView.swift in Sources */,
@@ -402,6 +406,8 @@
 				DEVELOPMENT_TEAM = 62F98PL32L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherAnderson/Info.plist;
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location data to provite weather information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location data to provite weather information";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -431,6 +437,8 @@
 				DEVELOPMENT_TEAM = 62F98PL32L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherAnderson/Info.plist;
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location data to provite weather information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location data to provite weather information";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

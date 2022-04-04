@@ -49,7 +49,11 @@ struct Weather: Codable {
         let icon = CityWeatherIcon(CityWeatherIcon: id)
         return icon.systemIconNameString
     }
-    let weatherDescription: String
+    private let weatherDescription: String
+    var newDescription: String {
+        let description = weatherDescription.components(separatedBy: " ")
+        return description[0]
+    }
     enum CodingKeys: String, CodingKey {
         case id
         case weatherDescription = "description"

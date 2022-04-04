@@ -30,38 +30,30 @@ class MainViewController: UIViewController {
     @IBOutlet weak var humidity: UILabel!
     @IBOutlet weak var visibilityLb: UILabel!
     @IBOutlet weak var stackViewLast: UIStackView!
-    
     @IBOutlet weak var sunDownLb: UILabel!
     @IBOutlet weak var sunUpLb: UILabel!
-    let serviceApiManager = ServiceApiManager()
 
     var weatherCity: CityWeather?
-
-//    var weatherLocationGet: CityWeatherLocation?
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
+
+    lazy var locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.delegate = self
+        lm.desiredAccuracy = kCLLocationAccuracyKilometer
+        lm.requestWhenInUseAuthorization()
+        return lm
+    }()
+    let serviceWorkWithTime = ServiceWorkWithTime()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
 
-        serviceApiManager.performRequest(typeWeather: .CityWeatherLocation) { weatherCity, weatherLocation in
-            self.weatherCity = weatherCity
-//            self.weatherLocationGet = weatherLocation
-
-//            guard let weatherCity = weatherCity else { return }
-            guard let weatherLocation = weatherLocation else { return }
-            self.hourlyWeather = weatherLocation.hourly
-            self.dailyWeather = weatherLocation.daily
-            DispatchQueue.main.async {
-//                self.fillMainWether(weather: weatherCity)
-                self.fillWetherLocal(weather: weatherLocation)
-                self.collectionView.reloadData()
-                self.tableView.reloadData()
-            }
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
         }
-
     }
 
     private func startSetting() {
@@ -80,32 +72,53 @@ class MainViewController: UIViewController {
 
 
 }
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        //            self.weatherLocationGet = weatherLocation
+
+        //            guard let weatherCity = weatherCity else { return }
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: latitude, longitude: longitude)) { [weak self] _, weatherLocation in
+            guard let weatherLocation = weatherLocation else { return }
+            self?.hourlyWeather = weatherLocation.hourly
+            self?.dailyWeather = weatherLocation.daily
+            DispatchQueue.main.async {
+                //                self.fillMainWether(weather: weatherCity)
+//                SettingCoreDate.writeNewDate(weather: cityWeather)
+                self?.fillWetherLocal(weather: weatherLocation)
+                self?.collectionView.reloadData()
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+}
+
+
+
+
 // setting weatherLocal
 extension MainViewController {
-    private func getSunTime(time: Int?, type: Bool) -> String {
-        guard let time = time else { return " Нет данных "}
-        let date = NSDate(timeIntervalSince1970: TimeInterval(time))
-        let dateNew = date as Date
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: dateNew)
-        let minutes = calendar.component(.minute, from: dateNew)
-        let wordLast = type ? "Восход" : "Закат"
-            return "\(hour):\(minutes) \n \(wordLast)"
-    }
+
     private func fillWetherLocal(weather: CityWeatherLocation) {
         temperatureLabelMain.text = weather.temperature
         iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
         cityLabel.text = weather.nameCity
-        descriptionWeatherLabelMain.text = weather.current.weather.first?.weatherDescription.firstUppercased
-        dayWetherLabel.text = getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = getDateNow(daily: weather.dt).1
+        descriptionWeatherLabelMain.text = weather.current.weather.first?.newDescription.firstUppercased
+        dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
+        timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
         feelLike.text = weather.current.feelString
         pressureLb.text = weather.current.pressureString
         cloudsLb.text = weather.current.cloudsString
         visibilityLb.text = weather.current.visibilityString
         humidity.text = weather.current.humidityString
-        sunUpLb.text = getSunTime(time: weather.current.sunrise, type: true)
-        sunDownLb.text = getSunTime(time: weather.current.sunset, type: false)
+        sunUpLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunrise, type: true)
+        sunDownLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunset, type: false)
     }
 }
 
@@ -118,20 +131,9 @@ extension MainViewController {
         cityLabel.text = weather.cityName
         descriptionWeatherLabelMain.text = weather.weatherDescription.firstUppercased
         iconMainWether.image = UIImage(named: weather.systemIconNameString)
-        dayWetherLabel.text = getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = getDateNow(daily: weather.dt).1
+        dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
+        timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
     }
-    private func getDateNow(daily: Int) -> (String, String) {
-        let date = NSDate(timeIntervalSince1970: TimeInterval(daily))
-        let dateFormater = DateFormatter()
-        dateFormater.locale = Locale(identifier: "ru-RUS")
-        dateFormater.setLocalizedDateFormatFromTemplate("MMM d, yyyy")
-        let dateNew = date as Date
-        let weekday = dateFormater.weekdaySymbols[Calendar.current.component(.weekday, from: Date()) - 1].firstUppercased
-        let dateDescription = dateFormater.string(from: dateNew)
-        return (weekday, dateDescription)
-    }
-
 }
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -142,16 +144,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
         let dayHourly = hourlyWeather[indexPath.row]
-        cell.timeLb.text = getDateNow(time: dayHourly)
+        cell.timeLb.text = serviceWorkWithTime.getDateOnAllDay(time: dayHourly)
         cell.fetchHourly(forWeather: dayHourly)
         return cell
-    }
-    private func getDateNow(time: Current) -> String {
-        let date = NSDate(timeIntervalSince1970: TimeInterval(time.dt))
-        let dateNew = date as Date
-        let calendar = Calendar.current
-        let time = calendar.component(.hour, from: dateNew)
-        return String(time)
     }
 }
 

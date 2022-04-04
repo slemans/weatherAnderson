@@ -9,6 +9,9 @@ import Foundation
 import SwiftyJSON
 
 class ServiceApiManager {
+    static let shared = ServiceApiManager()
+    private init() {}
+    
     let apiKey = "7c869b6df2587f132c69a4700c43631f"
 
     enum TypeModel {
@@ -21,7 +24,7 @@ class ServiceApiManager {
         case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
     }
 
-    func fetchCityWeather(forRequestType: RequestType) -> String {
+    private func fetchCityWeather(forRequestType: RequestType) -> URL? {
         var urlString = ""
         switch forRequestType {
         case let .cityName(city):
@@ -30,18 +33,21 @@ class ServiceApiManager {
         case let .coordinate(latitude, longitude):
             urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&exclude=minutely,alerts&units=metric&lang=ru&appid=\(apiKey)"
         }
-        return urlString
+        return URL(string: urlString)
     }
 
-    func performRequest(typeWeather: TypeModel, completionHandler: @escaping (CityWeather?, CityWeatherLocation?) -> Void) { // fileprivate
-
-//        let url = URL(string: fetchCityWeather(forRequestType: .cityName(city: "Minsk")))
-        let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: 53.9, longitude: 27.5667)))
-
-        guard let url = url else { return }
+    func performRequest(typeWeather: TypeModel, requestType: RequestType, completionHandler: @escaping (CityWeather?, CityWeatherLocation?) -> Void) { // fileprivate
+        var url = URL(string: "")
+        if typeWeather == .CityWeatherCity{
+//            url = URL(string: fetchCityWeather(forRequestType: .cityName(city: "Minsk")))
+        } else {
+            url = fetchCityWeather(forRequestType: requestType)
+//            let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: requestType, longitude: 27.5667)))
+        }
+        guard let newUrl = url else { return }
 
         let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: url) { data, _, _ in
+        let task = session.dataTask(with: newUrl) { data, _, _ in
             if let data = data,
                 let cityWeather = self.parseJSON(withData: data, typeWeather: typeWeather) {
                 completionHandler(cityWeather.0, cityWeather.1)
@@ -51,7 +57,7 @@ class ServiceApiManager {
 
     }
 
-    func parseJSON(withData data: Data, typeWeather: TypeModel) -> (CityWeather?, CityWeatherLocation?)? {
+    private func parseJSON(withData data: Data, typeWeather: TypeModel) -> (CityWeather?, CityWeatherLocation?)? {
         let decoder = JSONDecoder()
         do {
             switch typeWeather {

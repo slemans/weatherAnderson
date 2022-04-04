@@ -29,7 +29,7 @@ struct CityWeather {
         dt = weather.dt
         lon = weather.coord.lon
         lat = weather.coord.lat
-        weatherDescription = weather.weather.first!.weatherDescription
+        weatherDescription = weather.weather.first!.newDescription
     }
     
 }
