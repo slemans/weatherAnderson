@@ -51,10 +51,19 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         startSetting()
 
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
     }
+
+    func ifNoLocation(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Выбрать", style: .cancel)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+
 
     private func startSetting() {
         collectionView.dataSource = self
@@ -76,9 +85,6 @@ class MainViewController: UIViewController {
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        //            self.weatherLocationGet = weatherLocation
-
-        //            guard let weatherCity = weatherCity else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: latitude, longitude: longitude)) { [weak self] _, weatherLocation in
@@ -93,10 +99,12 @@ extension MainViewController: CLLocationManagerDelegate {
                 self?.tableView.reloadData()
             }
         }
+
     }
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
+
 }
 
 
