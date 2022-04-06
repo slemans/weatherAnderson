@@ -49,21 +49,20 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        navigationItem.setHidesBackButton(true, animated: true)
         startSetting()
-
-        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
     }
 
-    func ifNoLocation(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Выбрать", style: .cancel)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    }
 
+    @IBAction func btReturnToTableView() {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+        print("переход")
+    }
+    
 
     private func startSetting() {
         collectionView.dataSource = self
