@@ -28,8 +28,9 @@ class ServiceApiManager {
         var urlString = ""
         switch forRequestType {
         case let .cityName(city):
-//            демо на день
-            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&lang=ru&appid=\(apiKey)"
+//            демо на день id=
+            urlString = "https://api.openweathermap.org/data/2.5/weather?id=\(city)&appid=\(apiKey)"
+//            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&lang=ru&appid=\(apiKey)"
         case let .coordinate(latitude, longitude):
             urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&exclude=minutely,alerts&units=metric&lang=ru&appid=\(apiKey)"
         }
@@ -39,7 +40,8 @@ class ServiceApiManager {
     func performRequest(typeWeather: TypeModel, requestType: RequestType, completionHandler: @escaping (CityWeather?, CityWeatherLocation?) -> Void) { // fileprivate
         var url = URL(string: "")
         if typeWeather == .CityWeatherCity{
-//            url = URL(string: fetchCityWeather(forRequestType: .cityName(city: "Minsk")))
+            url = fetchCityWeather(forRequestType: requestType)
+//            url = fetchCityWeather(forRequestType: .cityName(city: "Minsk"))
         } else {
             url = fetchCityWeather(forRequestType: requestType)
 //            let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: requestType, longitude: 27.5667)))

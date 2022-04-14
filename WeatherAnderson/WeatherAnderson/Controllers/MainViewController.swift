@@ -2,170 +2,97 @@
 //  MainViewController.swift
 //  WeatherAnderson
 //
-//  Created by sleman on 22.03.22.
+//  Created by sleman on 14.04.22.
 //
 
 import UIKit
 import CoreLocation
-import CoreData
 
 class MainViewController: UIViewController {
 
-    @IBOutlet var mainViewMy: UIView!
-    @IBOutlet weak var collectionStackView: UIStackView!
-    @IBOutlet weak var temperatureStackView: UIStackView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var temperatureLabelMain: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var stackViewForecast: UIStackView!
-    @IBOutlet weak var iconMainWether: UIImageView!
-    @IBOutlet weak var descriptionWeatherLabelMain: UILabel!
-    @IBOutlet weak var dayWetherLabel: UILabel!
-    @IBOutlet weak var timeWetherLabel: UILabel!
-    @IBOutlet weak var stackViewCollectionViewTwo: UIStackView!
-    @IBOutlet weak var feelLike: UILabel!
-    @IBOutlet weak var pressureLb: UILabel!
-    @IBOutlet weak var cloudsLb: UILabel!
-    @IBOutlet weak var humidity: UILabel!
-    @IBOutlet weak var visibilityLb: UILabel!
-    @IBOutlet weak var stackViewLast: UIStackView!
-    @IBOutlet weak var sunDownLb: UILabel!
-    @IBOutlet weak var sunUpLb: UILabel!
+    @IBOutlet weak var cityTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    let classArrayCity = ArrayCity()
+    var arrayCity: [City] = []
+    var filterArrayCity: [City] = []
+    var showCityArrayOrWeather = true
 
-    var weatherCity: CityWeather?
-    var hourlyWeather: [Current] = []
-    var dailyWeather: [Daily] = []
 
-    lazy var locationManager: CLLocationManager = {
-        let lm = CLLocationManager()
-        lm.delegate = self
-        lm.desiredAccuracy = kCLLocationAccuracyKilometer
-        lm.requestWhenInUseAuthorization()
-        return lm
-    }()
-    let serviceWorkWithTime = ServiceWorkWithTime()
 
+
+    var cityWeatherLocationArray: [CityWeatherLocation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationItem.setHidesBackButton(true, animated: true)
-        startSetting()
+        searchBar.searchTextField.textColor = .white
+        arrayCity = classArrayCity.arrayCity
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
+//            performSegue(withIdentifier: "segueCell", sender: nil)
         }
     }
 
 
-    @IBAction func btReturnToTableView() {
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
-        print("переход")
-    }
-    
-
-    private func startSetting() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorColor = .white
-        temperatureStackView.addRightBorderWithColor(color: .white, width: 1)
-        stackViewForecast.addBottomBorderWithColor(color: .white, width: 1)
-        stackViewCollectionViewTwo.addBottomBorderWithColor(color: .white, width: 1)
-        stackViewLast.addBottomBorderWithColor(color: .white, width: 1)
-    }
-
-
-
-
 }
 
-extension MainViewController: CLLocationManagerDelegate {
-    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
-        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: latitude, longitude: longitude)) { [weak self] _, weatherLocation in
-            guard let weatherLocation = weatherLocation else { return }
-            self?.hourlyWeather = weatherLocation.hourly
-            self?.dailyWeather = weatherLocation.daily
-            DispatchQueue.main.async {
-                //                self.fillMainWether(weather: weatherCity)
-//                SettingCoreDate.writeNewDate(weather: cityWeather)
-                self?.fillWetherLocal(weather: weatherLocation)
-                self?.collectionView.reloadData()
-                self?.tableView.reloadData()
-            }
+extension MainViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            searchBar.showsCancelButton = true
+            showCityArrayOrWeather = false
+            filterArrayCity = arrayCity.filter({ (item) -> Bool in
+                return item.name.lowercased().contains(searchText.lowercased())
+            })
+        } else {
+            searchBar.showsCancelButton = false
+            showCityArrayOrWeather = true
         }
-
+        cityTableView.reloadData()
     }
-    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        showCityArrayOrWeather = false
+        cityTableView.reloadData()
     }
 
-}
-
-
-
-
-// setting weatherLocal
-extension MainViewController {
-
-    private func fillWetherLocal(weather: CityWeatherLocation) {
-        temperatureLabelMain.text = weather.temperature
-        iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
-        cityLabel.text = weather.nameCity
-        descriptionWeatherLabelMain.text = weather.current.weather.first?.newDescription.firstUppercased
-        dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
-        feelLike.text = weather.current.feelString
-        pressureLb.text = weather.current.pressureString
-        cloudsLb.text = weather.current.cloudsString
-        visibilityLb.text = weather.current.visibilityString
-        humidity.text = weather.current.humidityString
-        sunUpLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunrise, type: true)
-        sunDownLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunset, type: false)
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        showCityArrayOrWeather = true
+        cityTableView.reloadData()
     }
 }
-
-
-
-// setting weatherCity
-extension MainViewController {
-    private func fillMainWether(weather: CityWeather) {
-        temperatureLabelMain.text = weather.temperatureString
-        cityLabel.text = weather.cityName
-        descriptionWeatherLabelMain.text = weather.weatherDescription.firstUppercased
-        iconMainWether.image = UIImage(named: weather.systemIconNameString)
-        dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
-    }
-}
-
-extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return hourlyWeather.count - 24
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
-        let dayHourly = hourlyWeather[indexPath.row]
-        cell.timeLb.text = serviceWorkWithTime.getDateOnAllDay(time: dayHourly)
-        cell.fetchHourly(forWeather: dayHourly)
-        return cell
-    }
-}
-
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return dailyWeather.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if showCityArrayOrWeather {
+            return 1// cityWeatherLocationArray.count
+        } else {
+            if filterArrayCity.count != 0 {
+                return filterArrayCity.count
+            }
+            return arrayCity.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! TableViewCell
-        let day = dailyWeather[indexPath.row]
-        cell.fetchDaily(forWeather: day)
-        return cell
+        if showCityArrayOrWeather {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "weatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+            cell.isHidden = false
+            //  let weather = cityWeatherLocationArray[indexPath.row]
+
+            return cell
+        } else {
+            var city: City!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cityTableViewCell", for: indexPath) as! CityTableViewCell
+            if filterArrayCity.count != 0 {
+                city = filterArrayCity[indexPath.row]
+            } else {
+                city = arrayCity[indexPath.row]
+            }
+            cell.startSetting(text: city.name)
+            return cell
+        }
+
     }
+
+
 }
