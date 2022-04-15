@@ -33,7 +33,6 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var sunDownLb: UILabel!
     @IBOutlet weak var sunUpLb: UILabel!
 
-    var weatherCity: CityWeather?
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
     
@@ -61,6 +60,21 @@ class SecondViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
+    
+    func getLatAndLon(_ city: City?){
+        guard  let selectedCity = city else { return }
+        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] _, weatherLocation in
+            guard let weatherLocation = weatherLocation else { return }
+            self?.hourlyWeather = weatherLocation.hourly
+            self?.dailyWeather = weatherLocation.daily
+            DispatchQueue.main.async {
+                self?.cityLabel.text = selectedCity.name
+                self?.fillWetherLocal(weather: weatherLocation)
+                self?.collectionView.reloadData()
+                self?.tableView.reloadData()
+            }
+        }
+    }
 
 
     private func startSetting() {
@@ -82,18 +96,17 @@ extension SecondViewController: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: latitude, longitude: longitude)) { [weak self] _, weatherLocation in
-            guard let weatherLocation = weatherLocation else { return }
-            self?.hourlyWeather = weatherLocation.hourly
-            self?.dailyWeather = weatherLocation.daily
-            DispatchQueue.main.async {
-                //                self.fillMainWether(weather: weatherCity)
-//                SettingCoreDate.writeNewDate(weather: cityWeather)
-                self?.fillWetherLocal(weather: weatherLocation)
-                self?.collectionView.reloadData()
-                self?.tableView.reloadData()
-            }
-        }
+        
+//        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: latitude, longitude: longitude)) { [weak self] _, weatherLocation in
+//            guard let weatherLocation = weatherLocation else { return }
+//            self?.hourlyWeather = weatherLocation.hourly
+//            self?.dailyWeather = weatherLocation.daily
+//            DispatchQueue.main.async {
+//                self?.fillWetherLocal(weather: weatherLocation)
+//                self?.collectionView.reloadData()
+//                self?.tableView.reloadData()
+//            }
+//        }
         
 //        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherCity, requestType: .cityName(city: "833")) { [weak self] weather, _ in
 //            guard let weatherLocation = weather else { return }
@@ -119,7 +132,7 @@ extension SecondViewController {
     private func fillWetherLocal(weather: CityWeatherLocation) {
         temperatureLabelMain.text = weather.temperature
         iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
-        cityLabel.text = weather.nameCity
+//        cityLabel.text = weather.nameCity
         descriptionWeatherLabelMain.text = weather.current.weather.first?.newDescription.firstUppercased
         dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
         timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1

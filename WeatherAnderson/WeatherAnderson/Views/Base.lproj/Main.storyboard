@@ -10,11 +10,6 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="TimesNewRoman.ttf">
-            <string>.SFUI-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="LVh-pw-Rad">
@@ -97,22 +92,30 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="394" height="117"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dayClear" translatesAutoresizingMaskIntoConstraints="NO" id="i7O-a5-oxU">
+                                                                    <rect key="frame" x="8" y="10" width="378" height="97"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="10"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eF5-s5-FvL">
                                                                     <rect key="frame" x="8" y="10" width="378" height="97"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="zsJ-qK-r27">
-                                                                            <rect key="frame" x="0.0" y="1.5" width="252" height="94.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="252" height="97"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моя локация" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3i2-mA-L3J">
-                                                                                    <rect key="frame" x="8" y="8" width="244" height="29"/>
-                                                                                    <fontDescription key="fontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="26"/>
-                                                                                    <nil key="textColor"/>
+                                                                                    <rect key="frame" x="8" y="8" width="244" height="30.5"/>
+                                                                                    <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="26"/>
+                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание погоды" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wS-QM-5yl">
-                                                                                    <rect key="frame" x="8" y="66" width="244" height="20.5"/>
+                                                                                    <rect key="frame" x="8" y="67.5" width="244" height="21.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <nil key="textColor"/>
+                                                                                    <color key="textColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                             </subviews>
@@ -124,31 +127,34 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UIP-qE-inh">
                                                                             <rect key="frame" x="252" y="23" width="126" height="51"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evc-5V-RGQ">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.2°" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evc-5V-RGQ">
                                                                                     <rect key="frame" x="0.0" y="8" width="118" height="35"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                                                                    <nil key="textColor"/>
+                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                             </subviews>
                                                                             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
                                                                         </stackView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstItem="zsJ-qK-r27" firstAttribute="width" secondItem="UIP-qE-inh" secondAttribute="width" multiplier="2:1" id="flV-fC-anL"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="5"/>
+                                                                            <real key="value" value="10"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="i7O-a5-oxU" secondAttribute="bottom" constant="10" id="JP1-yl-fUU"/>
+                                                                <constraint firstItem="i7O-a5-oxU" firstAttribute="leading" secondItem="guh-p7-klR" secondAttribute="leading" constant="8" id="LGI-oU-t3Q"/>
                                                                 <constraint firstItem="eF5-s5-FvL" firstAttribute="leading" secondItem="guh-p7-klR" secondAttribute="leading" constant="8" id="agL-A1-FqS"/>
                                                                 <constraint firstAttribute="bottom" secondItem="eF5-s5-FvL" secondAttribute="bottom" constant="10" id="eKZ-48-YlC"/>
                                                                 <constraint firstItem="eF5-s5-FvL" firstAttribute="top" secondItem="guh-p7-klR" secondAttribute="top" constant="10" id="hDW-jp-As6"/>
+                                                                <constraint firstAttribute="trailing" secondItem="i7O-a5-oxU" secondAttribute="trailing" constant="8" id="qV2-c1-rLv"/>
+                                                                <constraint firstItem="i7O-a5-oxU" firstAttribute="top" secondItem="guh-p7-klR" secondAttribute="top" constant="10" id="t4d-f9-OBx"/>
                                                                 <constraint firstAttribute="trailing" secondItem="eF5-s5-FvL" secondAttribute="trailing" constant="8" id="tdX-fO-bEC"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
@@ -156,6 +162,7 @@
                                                         <connections>
                                                             <outlet property="cityWeatherLb" destination="3i2-mA-L3J" id="vHm-Lm-DeW"/>
                                                             <outlet property="descriptionWeatherLb" destination="1wS-QM-5yl" id="WbG-xj-X6E"/>
+                                                            <outlet property="fonCell" destination="i7O-a5-oxU" id="f49-0L-lHM"/>
                                                             <outlet property="temperatureLb" destination="Evc-5V-RGQ" id="cgb-ZD-4Jj"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -189,113 +196,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMl-AZ-wbJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3562.3188405797105" y="-596.65178571428567"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="o9p-1R-Jaz">
-            <objects>
-                <tableViewController restorationIdentifier="tableViewController" storyboardIdentifier="tableViewController" id="PkY-Hf-lZt" customClass="TableViewController" customModule="WeatherAnderson" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="zz9-FT-HwC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Введите город РБ" id="YfY-qR-XsW">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="PkY-Hf-lZt" id="Hah-fL-sX3"/>
-                            </connections>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mainTableViewCell" rowHeight="117" id="2lo-bC-2yN" customClass="WeatherTableViewCell" customModule="WeatherAnderson" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88.5" width="414" height="117"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2lo-bC-2yN" id="2hF-ZR-qV4">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ulT-dM-pJZ">
-                                            <rect key="frame" x="8" y="10" width="398" height="97"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="6ZF-VI-H1B">
-                                                    <rect key="frame" x="0.0" y="1.5" width="265.5" height="94.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моя локация" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNB-EJ-3Pz">
-                                                            <rect key="frame" x="8" y="8" width="257.5" height="29"/>
-                                                            <fontDescription key="fontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="26"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание погоды" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfg-VP-Pur">
-                                                            <rect key="frame" x="8" y="66" width="257.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Mfg-VP-Pur" firstAttribute="height" secondItem="jNB-EJ-3Pz" secondAttribute="height" multiplier="0.706897" id="MFn-sH-9gZ"/>
-                                                    </constraints>
-                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="0.0"/>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TJ7-WE-eUn">
-                                                    <rect key="frame" x="265.5" y="23" width="132.5" height="51"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkO-xe-BJw">
-                                                            <rect key="frame" x="0.0" y="8" width="124.5" height="35"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
-                                                </stackView>
-                                            </subviews>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="6ZF-VI-H1B" firstAttribute="width" secondItem="TJ7-WE-eUn" secondAttribute="width" multiplier="2:1" id="INF-O8-e1g"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="ulT-dM-pJZ" secondAttribute="bottom" constant="10" id="Mhx-Pp-xjz"/>
-                                        <constraint firstAttribute="trailing" secondItem="ulT-dM-pJZ" secondAttribute="trailing" constant="8" id="cAl-xu-aCl"/>
-                                        <constraint firstItem="ulT-dM-pJZ" firstAttribute="leading" secondItem="2hF-ZR-qV4" secondAttribute="leading" constant="8" id="iPU-zg-Pae"/>
-                                        <constraint firstItem="ulT-dM-pJZ" firstAttribute="top" secondItem="2hF-ZR-qV4" secondAttribute="top" constant="10" id="zFE-QR-g6X"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="cityWeatherLb" destination="jNB-EJ-3Pz" id="Yvi-Nw-bKy"/>
-                                    <outlet property="descriptionWeatherLb" destination="Mfg-VP-Pur" id="6pb-nd-zAX"/>
-                                    <outlet property="temperatureLb" destination="UkO-xe-BJw" id="txi-c2-aAe"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="PkY-Hf-lZt" id="okw-8J-ogT"/>
-                            <outlet property="delegate" destination="PkY-Hf-lZt" id="zAh-cM-3CT"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="bl0-QA-plB">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="tOi-53-dH3"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="search" destination="YfY-qR-XsW" id="FVk-42-afC"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N7B-xg-sMZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2661" y="78"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="mDL-SE-r5X">
@@ -929,24 +829,6 @@
             <point key="canvasLocation" x="4471.0144927536239" y="-597.32142857142856"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="PxF-BM-Q7f">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="05w-iB-A4h" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QTV-59-1Fi">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="PkY-Hf-lZt" kind="relationship" relationship="rootViewController" id="YFs-oQ-ht8"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fax-V6-IVf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1750.7246376811595" y="77.678571428571431"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="Wlu-fu-8PA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FYC-Yv-wsK" sceneMemberID="viewController">
@@ -970,6 +852,7 @@
         <image name="15" width="455" height="439"/>
         <image name="4" width="455" height="439"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="dayClear" width="335" height="117"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet.circle" catalog="system" width="128" height="121"/>
         <image name="sun.haze" catalog="system" width="128" height="119"/>

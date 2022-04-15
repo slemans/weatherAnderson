@@ -17,6 +17,15 @@ class MainViewController: UIViewController {
     var filterArrayCity: [City] = []
     var showCityArrayOrWeather = true
 
+    
+
+    lazy var locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.delegate = self
+        lm.desiredAccuracy = kCLLocationAccuracyKilometer
+        lm.requestWhenInUseAuthorization()
+        return lm
+    }()
 
 
 
@@ -27,40 +36,25 @@ class MainViewController: UIViewController {
         searchBar.searchTextField.textColor = .white
         arrayCity = classArrayCity.arrayCity
         if CLLocationManager.locationServicesEnabled() {
-//            performSegue(withIdentifier: "segueCell", sender: nil)
+            locationManager.requestLocation()
+        }
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let SecondVC = segue.destination as? SecondViewController {
+            SecondVC.getLatAndLon(sender as? City)
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                DescriptionVC.recipel = recipes[indexPath.row].recipe
+//                DescriptionVC.categoryFood = categoryFood
+//                DescriptionVC.mainRecipeOrFavorite = true
+//            }
         }
     }
 
 
 }
 
-extension MainViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if !searchText.isEmpty {
-            searchBar.showsCancelButton = true
-            showCityArrayOrWeather = false
-            filterArrayCity = arrayCity.filter({ (item) -> Bool in
-                return item.name.lowercased().contains(searchText.lowercased())
-            })
-        } else {
-            searchBar.showsCancelButton = false
-            showCityArrayOrWeather = true
-        }
-        cityTableView.reloadData()
-    }
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-        showCityArrayOrWeather = false
-        cityTableView.reloadData()
-    }
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        searchBar.showsCancelButton = false
-        showCityArrayOrWeather = true
-        cityTableView.reloadData()
-    }
-}
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showCityArrayOrWeather {
@@ -91,8 +85,61 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.startSetting(text: city.name)
             return cell
         }
-
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var city: City!
+        if !filterArrayCity.isEmpty {
+            city = filterArrayCity[indexPath.row]
+        } else {
+            city = arrayCity[indexPath.row]
+        }
+        performSegue(withIdentifier: "segueCell", sender: city)
     }
 
 
+}
+
+
+// работа с получением координат
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        let getMyCity = City("Моя локация", longitude, latitude)
+        performSegue(withIdentifier: "segueCell", sender: getMyCity)
+    }
+    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+}
+
+
+// поиск по городам
+extension MainViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            searchBar.showsCancelButton = true
+            showCityArrayOrWeather = false
+            filterArrayCity = arrayCity.filter({ (item) -> Bool in
+                return item.name.lowercased().contains(searchText.lowercased())
+            })
+        } else {
+            searchBar.showsCancelButton = false
+            showCityArrayOrWeather = true
+        }
+        cityTableView.reloadData()
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        showCityArrayOrWeather = false
+        cityTableView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        showCityArrayOrWeather = true
+        cityTableView.reloadData()
+    }
 }
