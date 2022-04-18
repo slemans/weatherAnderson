@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class MainViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class MainViewController: UIViewController {
     let classArrayCity = ArrayCity()
     var arrayCity: [City] = []
     var filterArrayCity: [City] = []
+    var weatherCoreDataArray: [WeatherCoreData] = []
     var showCityArrayOrWeather = true
 
     
@@ -33,6 +35,8 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadWeather()
+        weatherCoreDataArray.count
         searchBar.searchTextField.textColor = .white
         arrayCity = classArrayCity.arrayCity
         if CLLocationManager.locationServicesEnabled() {
@@ -48,6 +52,12 @@ class MainViewController: UIViewController {
 //                DescriptionVC.categoryFood = categoryFood
 //                DescriptionVC.mainRecipeOrFavorite = true
 //            }
+        }
+    }
+    private func loadWeather() {
+        if let weather = ServiceWorkWithCoreDate.getWeatherArray(){
+            weatherCoreDataArray = weather
+            cityTableView.reloadData()
         }
     }
 
@@ -111,6 +121,8 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+        print("нет локации")
+        performSegue(withIdentifier: "segueCell", sender: nil)
     }
 }
 

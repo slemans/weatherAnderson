@@ -205,6 +205,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="P2t-0a-9nA">
+                                <rect key="frame" x="0.0" y="421" width="414" height="108"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы не включили геолокацию" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arb-Jd-pAu">
+                                        <rect key="frame" x="52" y="0.0" width="310" height="108"/>
+                                        <fontDescription key="fontDescription" name="KohinoorGujarati-Bold" family="Kohinoor Gujarati" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fUc-D6-lZ9">
                                 <rect key="frame" x="20" y="88" width="374" height="103.5"/>
                                 <subviews>
@@ -763,6 +774,19 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="AMJ-Af-ITJ"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="AEV-sC-zzU"/>
                             </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vjO-MV-gNg">
+                                <rect key="frame" x="0.0" y="-2" width="414" height="894"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="tP4-Md-u8c">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="894"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="tP4-Md-u8c" firstAttribute="centerY" secondItem="vjO-MV-gNg" secondAttribute="centerY" id="Umw-RY-bcC"/>
+                                    <constraint firstItem="tP4-Md-u8c" firstAttribute="centerX" secondItem="vjO-MV-gNg" secondAttribute="centerX" id="Upi-Pk-bKx"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eO1-GG-B8E"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -771,8 +795,16 @@
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="trailing" secondItem="28j-K6-FMN" secondAttribute="trailing" id="86g-HL-Hm0"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="trailing" secondItem="fUc-D6-lZ9" secondAttribute="trailing" constant="20" id="Euv-j1-fXm"/>
                             <constraint firstItem="liu-wb-rlh" firstAttribute="width" secondItem="5yC-hR-Lzn" secondAttribute="width" id="Ldn-xf-Api"/>
+                            <constraint firstItem="P2t-0a-9nA" firstAttribute="centerY" secondItem="eO1-GG-B8E" secondAttribute="centerY" id="M0G-Sn-sWR"/>
+                            <constraint firstItem="eO1-GG-B8E" firstAttribute="trailing" secondItem="vjO-MV-gNg" secondAttribute="trailing" id="OgF-CF-sbJ"/>
+                            <constraint firstItem="vjO-MV-gNg" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="-90" id="SGE-Hp-R6U"/>
+                            <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="vjO-MV-gNg" secondAttribute="bottom" constant="-30" id="TSR-uh-hMK"/>
+                            <constraint firstItem="P2t-0a-9nA" firstAttribute="centerX" secondItem="eO1-GG-B8E" secondAttribute="centerX" id="VyU-fN-zBk"/>
+                            <constraint firstItem="P2t-0a-9nA" firstAttribute="trailing" secondItem="eO1-GG-B8E" secondAttribute="trailing" id="bDh-ej-beH"/>
                             <constraint firstItem="28j-K6-FMN" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="154" id="gew-S7-pFL"/>
+                            <constraint firstItem="eO1-GG-B8E" firstAttribute="leading" secondItem="P2t-0a-9nA" secondAttribute="leading" id="qlv-3R-QNG"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="28j-K6-FMN" secondAttribute="bottom" constant="-30" id="rNI-T9-nz8"/>
+                            <constraint firstItem="vjO-MV-gNg" firstAttribute="leading" secondItem="eO1-GG-B8E" secondAttribute="leading" id="sqq-wo-38p"/>
                             <constraint firstItem="fUc-D6-lZ9" firstAttribute="leading" secondItem="eO1-GG-B8E" secondAttribute="leading" constant="20" id="uQb-Ls-cpT"/>
                             <constraint firstItem="28j-K6-FMN" firstAttribute="leading" secondItem="eO1-GG-B8E" secondAttribute="leading" id="w5c-bb-sWr"/>
                         </constraints>
@@ -803,6 +835,7 @@
                     <connections>
                         <outlet property="cityLabel" destination="qtF-aY-a7Q" id="SLa-mL-xSc"/>
                         <outlet property="cloudsLb" destination="S8I-i2-X4K" id="Kjk-Cj-n1r"/>
+                        <outlet property="collectionMain" destination="28j-K6-FMN" id="WKQ-su-Zb4"/>
                         <outlet property="collectionStackView" destination="8dl-yt-ex2" id="Xfv-3U-183"/>
                         <outlet property="collectionView" destination="m6C-Gl-JgZ" id="Y6g-l7-KLO"/>
                         <outlet property="dayWetherLabel" destination="JUL-mV-MeL" id="xEd-f4-Z7K"/>
@@ -810,8 +843,11 @@
                         <outlet property="feelLike" destination="DxZ-dr-X1G" id="jBX-LI-akA"/>
                         <outlet property="humidity" destination="hzx-kl-MdQ" id="PwM-R3-xgN"/>
                         <outlet property="iconMainWether" destination="71O-Xc-dTC" id="dDA-gn-KrT"/>
+                        <outlet property="mainStackFirst" destination="fUc-D6-lZ9" id="PtA-0e-XHq"/>
                         <outlet property="mainViewMy" destination="5yC-hR-Lzn" id="Z6M-PS-CJs"/>
                         <outlet property="pressureLb" destination="seb-WJ-Zq6" id="pbi-4H-9qF"/>
+                        <outlet property="stackActivity" destination="vjO-MV-gNg" id="LNQ-Rr-c7P"/>
+                        <outlet property="stackError" destination="P2t-0a-9nA" id="tVE-dK-LPT"/>
                         <outlet property="stackViewCollectionViewTwo" destination="63K-EC-YJN" id="VEd-RX-lSV"/>
                         <outlet property="stackViewForecast" destination="Jjb-ac-Zah" id="41H-RG-CeY"/>
                         <outlet property="stackViewLast" destination="Gf5-Br-5aD" id="GUr-AG-d4b"/>

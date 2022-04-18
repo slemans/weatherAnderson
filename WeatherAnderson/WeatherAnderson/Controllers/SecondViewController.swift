@@ -32,26 +32,26 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var stackViewLast: UIStackView!
     @IBOutlet weak var sunDownLb: UILabel!
     @IBOutlet weak var sunUpLb: UILabel!
-
+    @IBOutlet weak var mainStackFirst: UIStackView!
+    @IBOutlet weak var collectionMain: UIScrollView!
+    @IBOutlet weak var stackError: UIStackView!
+    @IBOutlet weak var stackActivity: UIStackView!
+    
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
-    
-
-    lazy var locationManager: CLLocationManager = {
-        let lm = CLLocationManager()
-        lm.delegate = self
-        lm.desiredAccuracy = kCLLocationAccuracyKilometer
-        lm.requestWhenInUseAuthorization()
-        return lm
-    }()
+    var demoWeather = false
+    var weatherFull: CityWeatherLocation?
     let serviceWorkWithTime = ServiceWorkWithTime()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
+        if demoWeather{
+            stackActivity.isHidden = true
+            collectionMain.isHidden = true
+            mainStackFirst.isHidden = true
+            stackError.isHidden = false
         }
     }
 
@@ -60,24 +60,32 @@ class SecondViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
-    
-    func getLatAndLon(_ city: City?){
-        guard  let selectedCity = city else { return }
-        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] _, weatherLocation in
-            guard let weatherLocation = weatherLocation else { return }
-            self?.hourlyWeather = weatherLocation.hourly
-            self?.dailyWeather = weatherLocation.daily
-            DispatchQueue.main.async {
-                self?.cityLabel.text = selectedCity.name
-                self?.fillWetherLocal(weather: weatherLocation)
-                self?.collectionView.reloadData()
-                self?.tableView.reloadData()
+
+    func getLatAndLon(_ city: City?) {
+        if let selectedCity = city {
+            demoWeather = false
+            ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] _, weatherLocation in
+                guard let weatherLocation = weatherLocation else { return }
+                self?.hourlyWeather = weatherLocation.hourly
+                self?.dailyWeather = weatherLocation.daily
+                DispatchQueue.main.async {
+                    self?.stackActivity.isHidden = true
+                    self?.cityLabel.text = selectedCity.name
+                    self?.fillWetherLocal(weather: weatherLocation)
+                    self?.collectionView.reloadData()
+                    self?.tableView.reloadData()
+                }
             }
+        } else {
+            demoWeather = true
         }
     }
 
 
+
+
     private func startSetting() {
+        stackActivity.alpha = 0.9
         collectionView.dataSource = self
         collectionView.delegate = self
         tableView.delegate = self
@@ -90,41 +98,6 @@ class SecondViewController: UIViewController {
     }
 
 }
-
-extension SecondViewController: CLLocationManagerDelegate {
-    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
-        
-//        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: latitude, longitude: longitude)) { [weak self] _, weatherLocation in
-//            guard let weatherLocation = weatherLocation else { return }
-//            self?.hourlyWeather = weatherLocation.hourly
-//            self?.dailyWeather = weatherLocation.daily
-//            DispatchQueue.main.async {
-//                self?.fillWetherLocal(weather: weatherLocation)
-//                self?.collectionView.reloadData()
-//                self?.tableView.reloadData()
-//            }
-//        }
-        
-//        ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherCity, requestType: .cityName(city: "833")) { [weak self] weather, _ in
-//            guard let weatherLocation = weather else { return }
-//            self?.weatherCity = weatherLocation
-//            print(weather?.cityName)
-//            DispatchQueue.main.async {
-//                self?.fillMainWether(weather: weatherLocation)
-//            }
-//        }
-    }
-    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-
-}
-
-
-
 
 // setting weatherLocal
 extension SecondViewController {

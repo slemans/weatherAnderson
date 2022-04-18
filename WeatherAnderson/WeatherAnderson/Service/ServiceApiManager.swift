@@ -10,8 +10,8 @@ import SwiftyJSON
 
 class ServiceApiManager {
     static let shared = ServiceApiManager()
-    private init() {}
-    
+    private init() { }
+
     let apiKey = "7c869b6df2587f132c69a4700c43631f"
 
     enum TypeModel {
@@ -39,23 +39,32 @@ class ServiceApiManager {
 
     func performRequest(typeWeather: TypeModel, requestType: RequestType, completionHandler: @escaping (CityWeather?, CityWeatherLocation?) -> Void) { // fileprivate
         var url = URL(string: "")
-        if typeWeather == .CityWeatherCity{
+        if typeWeather == .CityWeatherCity {
             url = fetchCityWeather(forRequestType: requestType)
-//            url = fetchCityWeather(forRequestType: .cityName(city: "Minsk"))
         } else {
             url = fetchCityWeather(forRequestType: requestType)
-//            let url = URL(string: fetchCityWeather(forRequestType: .coordinate(latitude: requestType, longitude: 27.5667)))
         }
         guard let newUrl = url else { return }
 
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: newUrl) { data, _, _ in
-            if let data = data,
-                let cityWeather = self.parseJSON(withData: data, typeWeather: typeWeather) {
-                completionHandler(cityWeather.0, cityWeather.1)
+        let queue = DispatchQueue.global(qos: .userInteractive)
+        queue.async {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: newUrl) { data, _, _ in
+                if let data = data,
+                    let cityWeather = self.parseJSON(withData: data, typeWeather: typeWeather) {
+                    completionHandler(cityWeather.0, cityWeather.1)
+                }
             }
+            task.resume()
         }
-        task.resume()
+//        let session = URLSession(configuration: .default)
+//        let task = session.dataTask(with: newUrl) { data, _, _ in
+//            if let data = data,
+//                let cityWeather = self.parseJSON(withData: data, typeWeather: typeWeather) {
+//                completionHandler(cityWeather.0, cityWeather.1)
+//            }
+//        }
+//        task.resume()
 
     }
 
