@@ -45,9 +45,6 @@ class ServiceApiManager {
             url = fetchCityWeather(forRequestType: requestType)
         }
         guard let newUrl = url else { return }
-
-        let queue = DispatchQueue.global(qos: .userInteractive)
-        queue.async {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: newUrl) { data, _, _ in
                 if let data = data,
@@ -56,7 +53,6 @@ class ServiceApiManager {
                 }
             }
             task.resume()
-        }
 //        let session = URLSession(configuration: .default)
 //        let task = session.dataTask(with: newUrl) { data, _, _ in
 //            if let data = data,
@@ -74,8 +70,8 @@ class ServiceApiManager {
             switch typeWeather {
             case .CityWeatherCity:
                 let weatherData = try decoder.decode(CityWeatherCity.self, from: data)
-                guard let cityWeathers = CityWeather(CityWeatherData: weatherData) else { return (nil, nil) }
-                return (cityWeathers, nil)
+               // guard let cityWeathers = CityWeather(CityWeatherData: weatherData) else { return (nil, nil) }
+                return (nil, nil)
             case .CityWeatherLocation:
                 let weatherData = try decoder.decode(CityWeatherCoordinate.self, from: data)
                 guard let weathers = CityWeatherLocation(weatherLocation: weatherData) else { return (nil, nil) }

@@ -31,3 +31,19 @@ struct CityWeatherIcon {
         conditionCode = CityWeatherIcon
     }
 }
+
+struct BackgroundCell {
+    private let code: Int
+    var imageBackground: String {
+        switch code {
+            case 200 ... 232: return "dayCloud.png"
+            case 300 ... 321: return "dayCloud.png"
+            case 500 ... 531: return "dayCloud.png"
+            case 600 ... 622: return "dayCloud.png"
+            default: return "dayClear.png"
+        }
+    }
+    init(background: Int) {
+        code = background
+    }
+}

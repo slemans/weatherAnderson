@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
     var weatherCoreDataArray: [WeatherCoreData] = []
     var showCityArrayOrWeather = true
 
-    
+
 
     lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
@@ -35,18 +35,29 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadWeather()
-        weatherCoreDataArray.count
         searchBar.searchTextField.textColor = .white
         arrayCity = classArrayCity.arrayCity
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
-        
+
     }
+    override func viewWillAppear(_ animated: Bool) {
+        loadWeather()
+    }
+
+    private func loadWeather() {
+        if let weatherArray = ServiceWorkWithCoreDate.getWeatherArray() {
+            weatherCoreDataArray = weatherArray
+            cityTableView.reloadData()
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let SecondVC = segue.destination as? SecondViewController {
             SecondVC.getLatAndLon(sender as? City)
+            SecondVC.newOrNoWeather = showCityArrayOrWeather
+            
 //            if let indexPath = tableView.indexPathForSelectedRow {
 //                DescriptionVC.recipel = recipes[indexPath.row].recipe
 //                DescriptionVC.categoryFood = categoryFood
@@ -54,12 +65,7 @@ class MainViewController: UIViewController {
 //            }
         }
     }
-    private func loadWeather() {
-        if let weather = ServiceWorkWithCoreDate.getWeatherArray(){
-            weatherCoreDataArray = weather
-            cityTableView.reloadData()
-        }
-    }
+
 
 
 }
@@ -68,7 +74,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showCityArrayOrWeather {
-            return 1// cityWeatherLocationArray.count
+            return weatherCoreDataArray.count// cityWeatherLocationArray.count
         } else {
             if filterArrayCity.count != 0 {
                 return filterArrayCity.count
@@ -81,8 +87,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         if showCityArrayOrWeather {
             let cell = tableView.dequeueReusableCell(withIdentifier: "weatherTableViewCell", for: indexPath) as! WeatherTableViewCell
             cell.isHidden = false
-            //  let weather = cityWeatherLocationArray[indexPath.row]
-
+            let weather = weatherCoreDataArray[indexPath.row]
+            cell.fetchAndPutUI(weather)
             return cell
         } else {
             var city: City!
@@ -98,13 +104,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var city: City!
-        if !filterArrayCity.isEmpty {
-            city = filterArrayCity[indexPath.row]
+        if showCityArrayOrWeather{
+            let weather = weatherCoreDataArray[indexPath.row]
+            city = City(weather.name!, weather.lon, weather.lat)
         } else {
-            city = arrayCity[indexPath.row]
+            if !filterArrayCity.isEmpty {
+                city = filterArrayCity[indexPath.row]
+            } else {
+                city = arrayCity[indexPath.row]
+            }
         }
         performSegue(withIdentifier: "segueCell", sender: city)
     }
+    
 
 
 }
@@ -121,7 +133,6 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-        print("нет локации")
         performSegue(withIdentifier: "segueCell", sender: nil)
     }
 }

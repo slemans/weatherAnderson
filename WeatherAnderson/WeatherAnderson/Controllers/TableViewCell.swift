@@ -19,7 +19,6 @@ class TableViewCell: UITableViewCell {
     func fetchDaily(forWeather weatherDaily: Daily?) {
         guard let weatherDaily = weatherDaily else { return }
         imageIcon.image = UIImage(named: weatherDaily.weather.first!.systemIconNameString)
-
         dayLb.text = serviceWorkWithTime.getDatetimeWeak(daily: weatherDaily.dt)
         temperatureLb.text = weatherDaily.temp.temperatureStringMinMax
     }

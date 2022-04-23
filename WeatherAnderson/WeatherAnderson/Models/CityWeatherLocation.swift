@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CityWeatherLocation {
+struct CityWeatherLocation: Codable {
     let temperature: String
     private let timezone: String
     let hourly: [Current]

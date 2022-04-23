@@ -104,42 +104,18 @@
                                                                     <rect key="frame" x="8" y="10" width="378" height="97"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="zsJ-qK-r27">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="252" height="97"/>
+                                                                            <rect key="frame" x="0.0" y="22.5" width="378" height="52.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Моя локация" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3i2-mA-L3J">
-                                                                                    <rect key="frame" x="8" y="8" width="244" height="30.5"/>
+                                                                                    <rect key="frame" x="8" y="8" width="370" height="36.5"/>
                                                                                     <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="26"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание погоды" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wS-QM-5yl">
-                                                                                    <rect key="frame" x="8" y="67.5" width="244" height="21.5"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
                                                                             </subviews>
-                                                                            <constraints>
-                                                                                <constraint firstItem="1wS-QM-5yl" firstAttribute="height" secondItem="3i2-mA-L3J" secondAttribute="height" multiplier="0.706897" id="y4a-4B-WZH"/>
-                                                                            </constraints>
                                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="0.0"/>
                                                                         </stackView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UIP-qE-inh">
-                                                                            <rect key="frame" x="252" y="23" width="126" height="51"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.2°" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evc-5V-RGQ">
-                                                                                    <rect key="frame" x="0.0" y="8" width="118" height="35"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                            <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
-                                                                        </stackView>
                                                                     </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="zsJ-qK-r27" firstAttribute="width" secondItem="UIP-qE-inh" secondAttribute="width" multiplier="2:1" id="flV-fC-anL"/>
-                                                                    </constraints>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                             <real key="value" value="10"/>
@@ -161,9 +137,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <outlet property="cityWeatherLb" destination="3i2-mA-L3J" id="vHm-Lm-DeW"/>
-                                                            <outlet property="descriptionWeatherLb" destination="1wS-QM-5yl" id="WbG-xj-X6E"/>
                                                             <outlet property="fonCell" destination="i7O-a5-oxU" id="f49-0L-lHM"/>
-                                                            <outlet property="temperatureLb" destination="Evc-5V-RGQ" id="cgb-ZD-4Jj"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>

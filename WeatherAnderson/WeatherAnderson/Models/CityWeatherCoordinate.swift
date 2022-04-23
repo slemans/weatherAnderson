@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CityWeatherCoordinate: Decodable {
+struct CityWeatherCoordinate: Codable {
     let lat, lon: Double
     let hourly: [Current]
     let timezone: String
@@ -16,7 +16,7 @@ struct CityWeatherCoordinate: Decodable {
 }
 
 // MARK: - Current
-struct Current: Decodable {
+struct Current: Codable {
     private let temp: Double
     private let feels: Float
     private let pressure, clouds, humidity, visibility: Int
@@ -37,7 +37,7 @@ struct Current: Decodable {
 }
 
 // MARK: - Daily
-struct Daily: Decodable {
+struct Daily: Codable {
     let dt: Int
     let temp: Temp
     let weather: [Weather]

@@ -40,8 +40,14 @@ class SecondViewController: UIViewController {
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
     var demoWeather = false
+    var newOrNoWeather = true
+    var nameCity = ""
+    
     var weatherFull: CityWeatherLocation?
     let serviceWorkWithTime = ServiceWorkWithTime()
+    
+    var weatherSaveCoreDate: WeatherCoreData?
+    
 
 
     override func viewDidLoad() {
@@ -58,14 +64,36 @@ class SecondViewController: UIViewController {
 
     @IBAction func btReturnToTableView() {
         navigationController?.popViewController(animated: true)
+        saveNewWeatherInCoreDate()
         dismiss(animated: true, completion: nil)
+    }
+    
+    func saveNewWeatherInCoreDate(){
+        if !newOrNoWeather{
+            let newWetherToCoreDate = WeatherCoreData(context: ServiceWorkWithCoreDate.context)
+            guard let weatherFull = weatherFull else { return }
+            newWetherToCoreDate.name = nameCity
+            newWetherToCoreDate.background = getBackground(item: weatherFull)
+            newWetherToCoreDate.lon = weatherFull.lon
+            newWetherToCoreDate.lat = weatherFull.lat
+            ServiceWorkWithCoreDate.saveInCoreData()
+        }
+    }
+    
+    // фон для cell
+    func getBackground(item: CityWeatherLocation) -> String{
+        let background = BackgroundCell(background: item.daily[0].weather[0].id)
+        return background.imageBackground
     }
 
     func getLatAndLon(_ city: City?) {
         if let selectedCity = city {
+            nameCity = selectedCity.name
             demoWeather = false
             ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] _, weatherLocation in
                 guard let weatherLocation = weatherLocation else { return }
+                
+                self?.weatherFull = weatherLocation
                 self?.hourlyWeather = weatherLocation.hourly
                 self?.dailyWeather = weatherLocation.daily
                 DispatchQueue.main.async {
@@ -80,9 +108,6 @@ class SecondViewController: UIViewController {
             demoWeather = true
         }
     }
-
-
-
 
     private func startSetting() {
         stackActivity.alpha = 0.9
@@ -105,7 +130,6 @@ extension SecondViewController {
     private func fillWetherLocal(weather: CityWeatherLocation) {
         temperatureLabelMain.text = weather.temperature
         iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
-//        cityLabel.text = weather.nameCity
         descriptionWeatherLabelMain.text = weather.current.weather.first?.newDescription.firstUppercased
         dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
         timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
@@ -119,19 +143,6 @@ extension SecondViewController {
     }
 }
 
-
-
-// setting weatherCity
-extension SecondViewController {
-    private func fillMainWether(weather: CityWeather) {
-        temperatureLabelMain.text = weather.temperatureString
-        cityLabel.text = weather.cityName
-        descriptionWeatherLabelMain.text = weather.weatherDescription.firstUppercased
-        iconMainWether.image = UIImage(named: weather.systemIconNameString)
-        dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
-    }
-}
 
 extension SecondViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
