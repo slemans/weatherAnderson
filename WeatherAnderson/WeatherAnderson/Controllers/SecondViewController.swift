@@ -9,6 +9,8 @@ import UIKit
 import CoreLocation
 import CoreData
 
+
+
 class SecondViewController: UIViewController {
 
     @IBOutlet var mainViewMy: UIView!
@@ -36,24 +38,23 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var collectionMain: UIScrollView!
     @IBOutlet weak var stackError: UIStackView!
     @IBOutlet weak var stackActivity: UIStackView!
-    
+
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
     var demoWeather = false
-    var newOrNoWeather = true
     var nameCity = ""
-    
+
     var weatherFull: CityWeatherLocation?
     let serviceWorkWithTime = ServiceWorkWithTime()
-    
+
     var weatherSaveCoreDate: WeatherCoreData?
-    
+
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
-        if demoWeather{
+        if demoWeather {
             stackActivity.isHidden = true
             collectionMain.isHidden = true
             mainStackFirst.isHidden = true
@@ -63,27 +64,29 @@ class SecondViewController: UIViewController {
 
 
     @IBAction func btReturnToTableView() {
-        navigationController?.popViewController(animated: true)
         saveNewWeatherInCoreDate()
-        dismiss(animated: true, completion: nil)
+        navigationBackToMainView()
     }
-    
-    func saveNewWeatherInCoreDate(){
-        if !newOrNoWeather{
-            let newWetherToCoreDate = WeatherCoreData(context: ServiceWorkWithCoreDate.context)
-            guard let weatherFull = weatherFull else { return }
-            newWetherToCoreDate.name = nameCity
-            newWetherToCoreDate.background = getBackground(item: weatherFull)
-            newWetherToCoreDate.lon = weatherFull.lon
-            newWetherToCoreDate.lat = weatherFull.lat
-            ServiceWorkWithCoreDate.saveInCoreData()
+
+    func saveNewWeatherInCoreDate() {
+        let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
+        let itemPredicate = NSPredicate(format: "name MATCHES %@", nameCity)
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [itemPredicate])
+        if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
+            if allWeather.count == 0 {
+                let newWetherToCoreDate = WeatherCoreData(context: ServiceWorkWithCoreDate.context)
+                guard let weatherFull = weatherFull else { return }
+                newWetherToCoreDate.name = nameCity
+                newWetherToCoreDate.background = getBackground(item: weatherFull)
+                newWetherToCoreDate.lon = weatherFull.lon
+                newWetherToCoreDate.lat = weatherFull.lat
+                ServiceWorkWithCoreDate.saveInCoreData()
+            }
         }
+        
     }
-    
-    // фон для cell
-    func getBackground(item: CityWeatherLocation) -> String{
-        let background = BackgroundCell(background: item.daily[0].weather[0].id)
-        return background.imageBackground
+    @IBAction func buttonReturnBack() {
+        navigationBackToMainView()
     }
 
     func getLatAndLon(_ city: City?) {
@@ -92,7 +95,6 @@ class SecondViewController: UIViewController {
             demoWeather = false
             ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] _, weatherLocation in
                 guard let weatherLocation = weatherLocation else { return }
-                
                 self?.weatherFull = weatherLocation
                 self?.hourlyWeather = weatherLocation.hourly
                 self?.dailyWeather = weatherLocation.daily
@@ -140,6 +142,18 @@ extension SecondViewController {
         humidity.text = weather.current.humidityString
         sunUpLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunrise, type: true)
         sunDownLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunset, type: false)
+    }
+
+    // фон для cell
+    private func getBackground(item: CityWeatherLocation) -> String {
+        let background = BackgroundCell(background: item.daily[0].weather[0].id)
+        return background.imageBackground
+    }
+
+    // переход обратно на main view
+    private func navigationBackToMainView() {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }
 

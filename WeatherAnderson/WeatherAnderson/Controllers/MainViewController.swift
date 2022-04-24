@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var cityTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+
     let classArrayCity = ArrayCity()
     var arrayCity: [City] = []
     var filterArrayCity: [City] = []
@@ -45,41 +46,36 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadWeather()
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let secondVC = segue.destination as? SecondViewController {
+            if showCityArrayOrWeather {
+                secondVC.modalPresentationStyle = .fullScreen
+            }
+            secondVC.getLatAndLon(sender as? City)
+        }
+    }
     private func loadWeather() {
         if let weatherArray = ServiceWorkWithCoreDate.getWeatherArray() {
             weatherCoreDataArray = weatherArray
-            cityTableView.reloadData()
+            reloadTable()
         }
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let SecondVC = segue.destination as? SecondViewController {
-            SecondVC.getLatAndLon(sender as? City)
-            SecondVC.newOrNoWeather = showCityArrayOrWeather
-            
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                DescriptionVC.recipel = recipes[indexPath.row].recipe
-//                DescriptionVC.categoryFood = categoryFood
-//                DescriptionVC.mainRecipeOrFavorite = true
-//            }
-        }
+    private func prepareSegueNextView(_ city: City?) {
+        performSegue(withIdentifier: "segueCell", sender: city)
     }
-
-
-
+    private func reloadTable() {
+        cityTableView.reloadData()
+    }
 }
+
 
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showCityArrayOrWeather {
-            return weatherCoreDataArray.count// cityWeatherLocationArray.count
+            return weatherCoreDataArray.count
         } else {
-            if filterArrayCity.count != 0 {
-                return filterArrayCity.count
-            }
-            return arrayCity.count
+            return filterArrayCity.count != 0 ? filterArrayCity.count : arrayCity.count
         }
     }
 
@@ -93,32 +89,42 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             var city: City!
             let cell = tableView.dequeueReusableCell(withIdentifier: "cityTableViewCell", for: indexPath) as! CityTableViewCell
-            if filterArrayCity.count != 0 {
-                city = filterArrayCity[indexPath.row]
-            } else {
-                city = arrayCity[indexPath.row]
-            }
+            city = filterArrayCity.count != 0 ? filterArrayCity[indexPath.row] : arrayCity[indexPath.row]
             cell.startSetting(text: city.name)
             return cell
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var city: City!
-        if showCityArrayOrWeather{
+        if showCityArrayOrWeather {
             let weather = weatherCoreDataArray[indexPath.row]
             city = City(weather.name!, weather.lon, weather.lat)
         } else {
-            if !filterArrayCity.isEmpty {
-                city = filterArrayCity[indexPath.row]
-            } else {
-                city = arrayCity[indexPath.row]
+            city = !filterArrayCity.isEmpty ? filterArrayCity[indexPath.row] : arrayCity[indexPath.row]
+        }
+        prepareSegueNextView(city)
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let categoryDelete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+            if let name = self?.weatherCoreDataArray[indexPath.row].name {
+                let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
+                let itemPredicate = NSPredicate(format: "name MATCHES %@", name)
+                request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [itemPredicate])
+                if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
+                    for item in allWeather {
+                        ServiceWorkWithCoreDate.context.delete(item)
+                    }
+                    self?.weatherCoreDataArray.remove(at: indexPath.row)
+                    ServiceWorkWithCoreDate.saveInCoreData()
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
             }
         }
-        performSegue(withIdentifier: "segueCell", sender: city)
+        categoryDelete.image = #imageLiteral(resourceName: "cartm")
+        let swipeActions = UISwipeActionsConfiguration(actions: [categoryDelete])
+        return swipeActions
     }
-    
-
-
 }
 
 
@@ -128,12 +134,13 @@ extension MainViewController: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        let getMyCity = City("Моя локация", longitude, latitude)
-        performSegue(withIdentifier: "segueCell", sender: getMyCity)
+        let city = City("Моя локация", longitude, latitude)
+//        prepareSegueNextView(city)
+        performSegue(withIdentifier: "segueCell", sender: city)
     }
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-        performSegue(withIdentifier: "segueCell", sender: nil)
+        prepareSegueNextView(nil)
     }
 }
 
@@ -151,18 +158,19 @@ extension MainViewController: UISearchBarDelegate {
             searchBar.showsCancelButton = false
             showCityArrayOrWeather = true
         }
-        cityTableView.reloadData()
+        reloadTable()
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
         showCityArrayOrWeather = false
-        cityTableView.reloadData()
+        reloadTable()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.showsCancelButton = false
         showCityArrayOrWeather = true
-        cityTableView.reloadData()
+        reloadTable()
     }
+
 }
