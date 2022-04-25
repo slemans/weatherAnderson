@@ -817,7 +817,7 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="AMJ-Af-ITJ"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="AEV-sC-zzU"/>
                             </scrollView>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vjO-MV-gNg">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vjO-MV-gNg">
                                 <rect key="frame" x="0.0" y="-46" width="414" height="918"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="tP4-Md-u8c">

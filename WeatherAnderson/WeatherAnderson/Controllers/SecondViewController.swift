@@ -40,7 +40,6 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var collectionMain: UIScrollView!
     @IBOutlet weak var stackError: UIStackView!
     @IBOutlet weak var stackActivity: UIStackView!
-
     @IBOutlet weak var saveWeatherButton: UIButton!
     @IBOutlet weak var closeViewBt: UIButton!
 
@@ -104,7 +103,7 @@ class SecondViewController: UIViewController {
         if let selectedCity = city {
             nameCity = selectedCity.name
             demoWeather = false
-            ServiceApiManager.shared.performRequest(typeWeather: .CityWeatherLocation, requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] _, weatherLocation in
+            ServiceApiManager.shared.performRequest(requestType: .coordinate(latitude: selectedCity.lat, longitude: selectedCity.lon)) { [weak self] weatherLocation in
                 guard let weatherLocation = weatherLocation else { return }
                 self?.weatherFull = weatherLocation
                 self?.hourlyWeather = weatherLocation.hourly

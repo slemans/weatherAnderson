@@ -146,7 +146,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        categoryDelete.image = #imageLiteral(resourceName: "cartm")
+//        categoryDelete.image = #imageLiteral(resourceName: "cartm")
+        categoryDelete.image = UIImage(systemName: "clear")
+//        UIImage(systemName: "clear", withConfiguration: .none), for: .normal)
+        categoryDelete.backgroundColor = .black
         let swipeActions = UISwipeActionsConfiguration(actions: [categoryDelete])
         return swipeActions
     }
