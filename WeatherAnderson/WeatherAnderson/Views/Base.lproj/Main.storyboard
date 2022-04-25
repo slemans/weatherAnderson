@@ -222,71 +222,108 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fUc-D6-lZ9">
-                                <rect key="frame" x="20" y="54" width="374" height="103.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fUc-D6-lZ9">
+                                <rect key="frame" x="20" y="54" width="374" height="152.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aGL-Yp-2RP">
-                                        <rect key="frame" x="0.0" y="0.0" width="138.5" height="103.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goV-S9-xVc">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.2°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boT-Z2-Knx">
-                                                <rect key="frame" x="6" y="8" width="126.5" height="95.5"/>
-                                                <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="59"/>
-                                                <color key="textColor" name="MyColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNL-aL-B69">
+                                                <rect key="frame" x="5" y="0.0" width="184.5" height="44"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="list.bullet.circle" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="returnMainView" destination="doB-q6-wwC" eventType="touchUpInside" id="bRJ-Z1-A4G"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Kt-AY-RHL">
+                                                <rect key="frame" x="189.5" y="0.0" width="184.5" height="44"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="plus.rectangle.fill.on.rectangle.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="25"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="saveWeather" destination="doB-q6-wwC" eventType="touchUpInside" id="yol-CF-QCf"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Btp-qm-uIx">
-                                        <rect key="frame" x="143.5" y="0.0" width="230.5" height="103.5"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sHD-yK-aNW">
-                                                <rect key="frame" x="5" y="0.0" width="225.5" height="52.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloudy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTM-iG-RJR">
-                                                        <rect key="frame" x="8" y="0.0" width="217.5" height="52.5"/>
-                                                        <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="35"/>
-                                                        <color key="textColor" name="MyColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="0.0"/>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rbu-Pz-JRH">
-                                                <rect key="frame" x="5" y="53.5" width="225.5" height="50"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="West Jakarta" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtF-aY-a7Q">
-                                                        <rect key="frame" x="8" y="8" width="207.5" height="34"/>
-                                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="10"/>
-                                                        <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="25"/>
-                                                        <color key="textColor" name="MyColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.99607843139999996" green="0.99607843139999996" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="wjn-L1-vQe"/>
-                                                </constraints>
-                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="10"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </stackView>
-                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="hNL-aL-B69" firstAttribute="width" secondItem="8Kt-AY-RHL" secondAttribute="width" id="2g0-ab-oML"/>
+                                        </constraints>
                                         <edgeInsets key="layoutMargins" top="0.0" left="5" bottom="0.0" right="0.0"/>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Or2-E3-Ajz">
+                                        <rect key="frame" x="0.0" y="49" width="374" height="103.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aGL-Yp-2RP">
+                                                <rect key="frame" x="0.0" y="0.0" width="138.5" height="103.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.2°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boT-Z2-Knx">
+                                                        <rect key="frame" x="6" y="8" width="126.5" height="95.5"/>
+                                                        <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="59"/>
+                                                        <color key="textColor" name="MyColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Btp-qm-uIx">
+                                                <rect key="frame" x="143.5" y="0.0" width="230.5" height="103.5"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sHD-yK-aNW">
+                                                        <rect key="frame" x="5" y="0.0" width="225.5" height="52.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloudy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTM-iG-RJR">
+                                                                <rect key="frame" x="8" y="0.0" width="217.5" height="52.5"/>
+                                                                <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="35"/>
+                                                                <color key="textColor" name="MyColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="0.0"/>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rbu-Pz-JRH">
+                                                        <rect key="frame" x="5" y="53.5" width="225.5" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="West Jakarta" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtF-aY-a7Q">
+                                                                <rect key="frame" x="8" y="8" width="207.5" height="34"/>
+                                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="10"/>
+                                                                <fontDescription key="fontDescription" name="KohinoorGujarati-Regular" family="Kohinoor Gujarati" pointSize="25"/>
+                                                                <color key="textColor" name="MyColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.99607843139999996" green="0.99607843139999996" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="wjn-L1-vQe"/>
+                                                        </constraints>
+                                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="10"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </stackView>
+                                                </subviews>
+                                                <edgeInsets key="layoutMargins" top="0.0" left="5" bottom="0.0" right="0.0"/>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="aGL-Yp-2RP" firstAttribute="width" secondItem="Btp-qm-uIx" secondAttribute="width" multiplier="1.2:2" id="wa6-JI-aCt"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="aGL-Yp-2RP" firstAttribute="width" secondItem="Btp-qm-uIx" secondAttribute="width" multiplier="1.2:2" id="ZRT-8H-g2e"/>
-                                </constraints>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="28j-K6-FMN">
@@ -793,15 +830,6 @@
                                     <constraint firstItem="tP4-Md-u8c" firstAttribute="centerX" secondItem="vjO-MV-gNg" secondAttribute="centerX" id="Upi-Pk-bKx"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNL-aL-B69">
-                                <rect key="frame" x="15" y="44" width="38" height="38"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="list.bullet.circle" catalog="system" symbolScale="large"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
-                                </state>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eO1-GG-B8E"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -814,10 +842,8 @@
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="trailing" secondItem="vjO-MV-gNg" secondAttribute="trailing" id="OgF-CF-sbJ"/>
                             <constraint firstItem="vjO-MV-gNg" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="-90" id="SGE-Hp-R6U"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="vjO-MV-gNg" secondAttribute="bottom" constant="-30" id="TSR-uh-hMK"/>
-                            <constraint firstItem="hNL-aL-B69" firstAttribute="leading" secondItem="eO1-GG-B8E" secondAttribute="leading" constant="15" id="V9m-Eb-vQz"/>
                             <constraint firstItem="P2t-0a-9nA" firstAttribute="centerX" secondItem="eO1-GG-B8E" secondAttribute="centerX" id="VyU-fN-zBk"/>
                             <constraint firstItem="P2t-0a-9nA" firstAttribute="trailing" secondItem="eO1-GG-B8E" secondAttribute="trailing" id="bDh-ej-beH"/>
-                            <constraint firstItem="hNL-aL-B69" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" id="gCL-Q2-K6O"/>
                             <constraint firstItem="28j-K6-FMN" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="154" id="gew-S7-pFL"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="leading" secondItem="P2t-0a-9nA" secondAttribute="leading" id="qlv-3R-QNG"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="28j-K6-FMN" secondAttribute="bottom" constant="-30" id="rNI-T9-nz8"/>
@@ -848,6 +874,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cityLabel" destination="qtF-aY-a7Q" id="SLa-mL-xSc"/>
+                        <outlet property="closeViewBt" destination="hNL-aL-B69" id="h8d-t8-sk0"/>
                         <outlet property="cloudsLb" destination="S8I-i2-X4K" id="Kjk-Cj-n1r"/>
                         <outlet property="collectionMain" destination="28j-K6-FMN" id="WKQ-su-Zb4"/>
                         <outlet property="collectionStackView" destination="8dl-yt-ex2" id="Xfv-3U-183"/>
@@ -860,6 +887,7 @@
                         <outlet property="mainStackFirst" destination="fUc-D6-lZ9" id="PtA-0e-XHq"/>
                         <outlet property="mainViewMy" destination="5yC-hR-Lzn" id="Z6M-PS-CJs"/>
                         <outlet property="pressureLb" destination="seb-WJ-Zq6" id="pbi-4H-9qF"/>
+                        <outlet property="saveWeatherButton" destination="8Kt-AY-RHL" id="vFN-6j-kI5"/>
                         <outlet property="stackActivity" destination="vjO-MV-gNg" id="LNQ-Rr-c7P"/>
                         <outlet property="stackError" destination="P2t-0a-9nA" id="tVE-dK-LPT"/>
                         <outlet property="stackViewCollectionViewTwo" destination="63K-EC-YJN" id="VEd-RX-lSV"/>
@@ -905,6 +933,7 @@
         <image name="dayClear" width="335" height="117"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet.circle" catalog="system" width="128" height="121"/>
+        <image name="plus.rectangle.fill.on.rectangle.fill" catalog="system" width="128" height="97"/>
         <image name="sun.haze" catalog="system" width="128" height="119"/>
         <image name="sunrise" width="112" height="57"/>
         <namedColor name="MyColor">

@@ -9,7 +9,9 @@ import UIKit
 import CoreLocation
 import CoreData
 
-
+protocol ReloadTableWeather: AnyObject {
+    func reloadTableView()
+}
 
 class SecondViewController: UIViewController {
 
@@ -39,56 +41,65 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var stackError: UIStackView!
     @IBOutlet weak var stackActivity: UIStackView!
 
+    @IBOutlet weak var saveWeatherButton: UIButton!
+    @IBOutlet weak var closeViewBt: UIButton!
+
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
     var demoWeather = false
     var nameCity = ""
+    var fullViewOrModal = true
 
     var weatherFull: CityWeatherLocation?
     let serviceWorkWithTime = ServiceWorkWithTime()
 
     var weatherSaveCoreDate: WeatherCoreData?
-
-
+    weak var delegate: ReloadTableWeather?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
-        if demoWeather {
-            stackActivity.isHidden = true
-            collectionMain.isHidden = true
-            mainStackFirst.isHidden = true
-            stackError.isHidden = false
-        }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        newWeatherOrNo()
+    }
+    
 
-
-    @IBAction func btReturnToTableView() {
-        saveNewWeatherInCoreDate()
+    @IBAction func returnMainView() {
         navigationBackToMainView()
-    }
-
-    func saveNewWeatherInCoreDate() {
-        let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
-        let itemPredicate = NSPredicate(format: "name MATCHES %@", nameCity)
-        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [itemPredicate])
-        if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
-            if allWeather.count == 0 {
-                let newWetherToCoreDate = WeatherCoreData(context: ServiceWorkWithCoreDate.context)
-                guard let weatherFull = weatherFull else { return }
-                newWetherToCoreDate.name = nameCity
-                newWetherToCoreDate.background = getBackground(item: weatherFull)
-                newWetherToCoreDate.lon = weatherFull.lon
-                newWetherToCoreDate.lat = weatherFull.lat
-                ServiceWorkWithCoreDate.saveInCoreData()
-            }
-        }
-        
     }
     @IBAction func buttonReturnBack() {
         navigationBackToMainView()
     }
+    @IBAction func saveWeather() {
+        saveNewWeatherInCoreDate()
+        navigationBackToMainView()
+        delegate?.reloadTableView()
+    }
 
+
+    private func saveNewWeatherInCoreDate() {
+        let newWetherToCoreDate = WeatherCoreData(context: ServiceWorkWithCoreDate.context)
+        guard let weatherFull = weatherFull else { return }
+        newWetherToCoreDate.name = nameCity
+        newWetherToCoreDate.background = getBackground(item: weatherFull)
+        newWetherToCoreDate.lon = weatherFull.lon
+        newWetherToCoreDate.lat = weatherFull.lat
+        ServiceWorkWithCoreDate.saveInCoreData()
+    }
+    
+    
+    private func newWeatherOrNo(){
+        let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
+        let itemPredicate = NSPredicate(format: "name MATCHES %@", nameCity)
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [itemPredicate])
+        if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
+            if allWeather.count > 0 {
+                saveWeatherButton.isHidden = true
+            }
+        }
+    }
+    
     func getLatAndLon(_ city: City?) {
         if let selectedCity = city {
             nameCity = selectedCity.name
@@ -112,6 +123,16 @@ class SecondViewController: UIViewController {
     }
 
     private func startSetting() {
+        if demoWeather {
+            stackActivity.isHidden = true
+            collectionMain.isHidden = true
+            mainStackFirst.isHidden = true
+            stackError.isHidden = false
+        }
+        if !fullViewOrModal {
+            closeViewBt.setImage(UIImage(systemName: "clear", withConfiguration: .none), for: .normal)
+        }
+        saveWeatherButton.isHidden = fullViewOrModal
         stackActivity.alpha = 0.9
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -152,7 +173,6 @@ extension SecondViewController {
 
     // переход обратно на main view
     private func navigationBackToMainView() {
-        navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
 }

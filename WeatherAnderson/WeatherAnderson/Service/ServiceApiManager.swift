@@ -28,7 +28,6 @@ class ServiceApiManager {
         var urlString = ""
         switch forRequestType {
         case let .cityName(city):
-//            демо на день id=
             urlString = "https://api.openweathermap.org/data/2.5/weather?id=\(city)&appid=\(apiKey)"
 //            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&lang=ru&appid=\(apiKey)"
         case let .coordinate(latitude, longitude):
@@ -53,15 +52,6 @@ class ServiceApiManager {
                 }
             }
             task.resume()
-//        let session = URLSession(configuration: .default)
-//        let task = session.dataTask(with: newUrl) { data, _, _ in
-//            if let data = data,
-//                let cityWeather = self.parseJSON(withData: data, typeWeather: typeWeather) {
-//                completionHandler(cityWeather.0, cityWeather.1)
-//            }
-//        }
-//        task.resume()
-
     }
 
     private func parseJSON(withData data: Data, typeWeather: TypeModel) -> (CityWeather?, CityWeatherLocation?)? {
@@ -69,7 +59,7 @@ class ServiceApiManager {
         do {
             switch typeWeather {
             case .CityWeatherCity:
-                let weatherData = try decoder.decode(CityWeatherCity.self, from: data)
+               // let weatherData = try decoder.decode(CityWeatherCity.self, from: data)
                // guard let cityWeathers = CityWeather(CityWeatherData: weatherData) else { return (nil, nil) }
                 return (nil, nil)
             case .CityWeatherLocation:

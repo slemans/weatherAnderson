@@ -36,13 +36,12 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.searchTextField.textColor = .white
-        arrayCity = classArrayCity.arrayCity
+        startSetting()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
-
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         loadWeather()
     }
@@ -50,8 +49,13 @@ class MainViewController: UIViewController {
         if let secondVC = segue.destination as? SecondViewController {
             if showCityArrayOrWeather {
                 secondVC.modalPresentationStyle = .fullScreen
+                secondVC.fullViewOrModal = showCityArrayOrWeather
+            } else {
+                secondVC.fullViewOrModal = false
             }
+            secondVC.view.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             secondVC.getLatAndLon(sender as? City)
+            secondVC.delegate = self
         }
     }
     private func loadWeather() {
@@ -65,6 +69,27 @@ class MainViewController: UIViewController {
     }
     private func reloadTable() {
         cityTableView.reloadData()
+    }
+    private func showOrDisappearSearchBarOneSelect(){
+        searchBar.showsCancelButton = false
+        showCityArrayOrWeather = true
+    }
+    private func showOrDisappearSearchBarTwoSelect(){
+        searchBar.showsCancelButton = true
+        showCityArrayOrWeather = false
+    }
+    private func startSetting(){
+        searchBar.searchTextField.textColor = .white
+        arrayCity = classArrayCity.arrayCity
+    }
+    
+    
+}
+
+extension MainViewController: ReloadTableWeather{
+    func reloadTableView() {
+        showOrDisappearSearchBarOneSelect()
+        loadWeather()
     }
 }
 
@@ -135,8 +160,7 @@ extension MainViewController: CLLocationManagerDelegate {
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         let city = City("Моя локация", longitude, latitude)
-//        prepareSegueNextView(city)
-        performSegue(withIdentifier: "segueCell", sender: city)
+        prepareSegueNextView(city)
     }
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
@@ -149,28 +173,25 @@ extension MainViewController: CLLocationManagerDelegate {
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            searchBar.showsCancelButton = true
-            showCityArrayOrWeather = false
+            showOrDisappearSearchBarTwoSelect()
             filterArrayCity = arrayCity.filter({ (item) -> Bool in
                 return item.name.lowercased().contains(searchText.lowercased())
             })
         } else {
-            searchBar.showsCancelButton = false
-            showCityArrayOrWeather = true
+            showOrDisappearSearchBarOneSelect()
         }
         reloadTable()
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-        showCityArrayOrWeather = false
+        showOrDisappearSearchBarTwoSelect()
         reloadTable()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        searchBar.showsCancelButton = false
-        showCityArrayOrWeather = true
+        showOrDisappearSearchBarOneSelect()
         reloadTable()
     }
+    
 
 }
