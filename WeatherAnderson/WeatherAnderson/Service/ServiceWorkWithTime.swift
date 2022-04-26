@@ -43,7 +43,7 @@ class ServiceWorkWithTime {
     }
     
     // get time for weak
-    func getDatetimeWeak(daily: Int) -> String {
+    func getDateTimeWeak(daily: Int) -> String {
         let date = NSDate(timeIntervalSince1970: TimeInterval(daily))
         let dateFormater = DateFormatter()
         dateFormater.locale = Locale(identifier: "ru-RUS")
@@ -51,5 +51,4 @@ class ServiceWorkWithTime {
         let weekday = dateFormater.weekdaySymbols[Calendar.current.component(.weekday, from: dateNew) - 1].firstUppercased
         return weekday
     }
-    
 }

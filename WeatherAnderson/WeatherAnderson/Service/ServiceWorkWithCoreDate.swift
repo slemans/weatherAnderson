@@ -16,6 +16,7 @@ class ServiceWorkWithCoreDate{
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }
+    
     static func saveInCoreData() {
         do {
             try context.save()
@@ -23,6 +24,7 @@ class ServiceWorkWithCoreDate{
             print("Error saving context: \(error)")
         }
     }
+    
     static func getWeatherArray() -> [WeatherCoreData]? {
         let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
         var array: [WeatherCoreData] = []
@@ -33,5 +35,4 @@ class ServiceWorkWithCoreDate{
         }
         return array
     }
-
 }

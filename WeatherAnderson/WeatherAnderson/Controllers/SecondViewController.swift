@@ -48,6 +48,8 @@ class SecondViewController: UIViewController {
     var demoWeather = false
     var nameCity = ""
     var fullViewOrModal = true
+    var myLocation = false
+    var uniqueOrNo = true
 
     var weatherFull: CityWeatherLocation?
     let serviceWorkWithTime = ServiceWorkWithTime()
@@ -62,6 +64,14 @@ class SecondViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         newWeatherOrNo()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if myLocation && uniqueOrNo {
+            saveNewWeatherInCoreDate()
+            delegate?.reloadTableView()
+        }
+    }
+
     
 
     @IBAction func returnMainView() {
@@ -95,6 +105,7 @@ class SecondViewController: UIViewController {
         if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
             if allWeather.count > 0 {
                 saveWeatherButton.isHidden = true
+                uniqueOrNo = false
             }
         }
     }
@@ -177,29 +188,6 @@ extension SecondViewController {
 }
 
 
-extension SecondViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return hourlyWeather.count - 24
-    }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
-        let dayHourly = hourlyWeather[indexPath.row]
-        cell.timeLb.text = serviceWorkWithTime.getDateOnAllDay(time: dayHourly)
-        cell.fetchHourly(forWeather: dayHourly)
-        return cell
-    }
-}
 
-extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return dailyWeather.count
-    }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! TableViewCell
-        let day = dailyWeather[indexPath.row]
-        cell.fetchDaily(forWeather: day)
-        return cell
-    }
-}

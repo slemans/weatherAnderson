@@ -20,6 +20,9 @@
 		7F9194B027FB70A6005C1125 /* ServiceWorkWithTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9194AF27FB70A6005C1125 /* ServiceWorkWithTime.swift */; };
 		7F92DEE92804B11000031B32 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F92DEE82804B11000031B32 /* City.swift */; };
 		7FBF3537280DFF630047CA1A /* ServiceWorkWithCoreDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBF3536280DFF630047CA1A /* ServiceWorkWithCoreDate.swift */; };
+		7FCA8C7228187BB700A4E0CD /* TableViewDelegateSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCA8C7128187BB700A4E0CD /* TableViewDelegateSecondView.swift */; };
+		7FCA8C7428187C0D00A4E0CD /* CollectionViewDelegateSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCA8C7328187C0D00A4E0CD /* CollectionViewDelegateSecondView.swift */; };
+		7FCA8C76281883E800A4E0CD /* SearchBarDelegateMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCA8C75281883E800A4E0CD /* SearchBarDelegateMainView.swift */; };
 		7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */; };
 		7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5627ED042100A89420 /* TableViewCell.swift */; };
 		7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFB95B927E9BF42002B01FB /* AppDelegate.swift */; };
@@ -46,6 +49,9 @@
 		7F9194AF27FB70A6005C1125 /* ServiceWorkWithTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceWorkWithTime.swift; sourceTree = "<group>"; };
 		7F92DEE82804B11000031B32 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		7FBF3536280DFF630047CA1A /* ServiceWorkWithCoreDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceWorkWithCoreDate.swift; sourceTree = "<group>"; };
+		7FCA8C7128187BB700A4E0CD /* TableViewDelegateSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegateSecondView.swift; sourceTree = "<group>"; };
+		7FCA8C7328187C0D00A4E0CD /* CollectionViewDelegateSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegateSecondView.swift; sourceTree = "<group>"; };
+		7FCA8C75281883E800A4E0CD /* SearchBarDelegateMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarDelegateMainView.swift; sourceTree = "<group>"; };
 		7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		7FED2D5627ED042100A89420 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		7FFB95B627E9BF42002B01FB /* WeatherAnderson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAnderson.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,8 +130,18 @@
 		7FCA8C6F28174A7F00A4E0CD /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7FCA8C75281883E800A4E0CD /* SearchBarDelegateMainView.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		7FCA8C7028187B8100A4E0CD /* SecondView */ = {
+			isa = PBXGroup;
+			children = (
+				7FCA8C7128187BB700A4E0CD /* TableViewDelegateSecondView.swift */,
+				7FCA8C7328187C0D00A4E0CD /* CollectionViewDelegateSecondView.swift */,
+			);
+			path = SecondView;
 			sourceTree = "<group>";
 		};
 		7FFB95AD27E9BF42002B01FB = {
@@ -210,6 +226,7 @@
 		7FFB95DA27EA1EF0002B01FB /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				7FCA8C7028187B8100A4E0CD /* SecondView */,
 				7FCA8C6F28174A7F00A4E0CD /* MainView */,
 				7FCA8C6E28174A6900A4E0CD /* UI */,
 			);
@@ -297,10 +314,13 @@
 				7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */,
 				7F2F3ADD27F24915008D45FA /* StringProtocol.swift in Sources */,
 				7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */,
+				7FCA8C7428187C0D00A4E0CD /* CollectionViewDelegateSecondView.swift in Sources */,
+				7FCA8C7228187BB700A4E0CD /* TableViewDelegateSecondView.swift in Sources */,
 				7F9194B027FB70A6005C1125 /* ServiceWorkWithTime.swift in Sources */,
 				7F2F3ACA27F0E939008D45FA /* ServiceApiManager.swift in Sources */,
 				7FFB95DC27EA1F0B002B01FB /* GradientView.swift in Sources */,
 				7FFB95DE27EA2F59002B01FB /* UIView.swift in Sources */,
+				7FCA8C76281883E800A4E0CD /* SearchBarDelegateMainView.swift in Sources */,
 				7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */,
 				7F9073C02808784F00F20C71 /* CityTableViewCell.swift in Sources */,
 				7FFB95D927EA196C002B01FB /* SecondViewController.swift in Sources */,

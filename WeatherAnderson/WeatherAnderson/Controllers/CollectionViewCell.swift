@@ -13,10 +13,12 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var timeLb: UILabel!
     @IBOutlet weak var temperatureLb: UILabel!
     
+    let serviceWorkWithTime = ServiceWorkWithTime()
+    
     func fetchHourly(forWeather weatherHourly: Current?) {
         guard let weatherHourly = weatherHourly else { return }
         iconImage.image = UIImage(named: weatherHourly.weather.first!.systemIconNameString)
         temperatureLb.text = weatherHourly.temperatureString
+        timeLb.text = serviceWorkWithTime.getDateOnAllDay(time: weatherHourly)
     }
-
 }

@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
     var filterArrayCity: [City] = []
     var weatherCoreDataArray: [WeatherCoreData] = []
     var showCityArrayOrWeather = true
+    var myLocationOrNo = false
 
 
 
@@ -53,6 +54,7 @@ class MainViewController: UIViewController {
             } else {
                 secondVC.fullViewOrModal = false
             }
+            secondVC.myLocation = myLocationOrNo
             secondVC.view.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             secondVC.getLatAndLon(sender as? City)
             secondVC.delegate = self
@@ -67,14 +69,14 @@ class MainViewController: UIViewController {
     private func prepareSegueNextView(_ city: City?) {
         performSegue(withIdentifier: "segueCell", sender: city)
     }
-    private func reloadTable() {
+    func reloadTable() {
         cityTableView.reloadData()
     }
-    private func showOrDisappearSearchBarOneSelect(){
+    func showOrDisappearSearchBarOneSelect(){
         searchBar.showsCancelButton = false
         showCityArrayOrWeather = true
     }
-    private func showOrDisappearSearchBarTwoSelect(){
+    func showOrDisappearSearchBarTwoSelect(){
         searchBar.showsCancelButton = true
         showCityArrayOrWeather = false
     }
@@ -88,6 +90,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: ReloadTableWeather{
     func reloadTableView() {
+        myLocationOrNo = false
         showOrDisappearSearchBarOneSelect()
         loadWeather()
     }
@@ -127,11 +130,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             city = !filterArrayCity.isEmpty ? filterArrayCity[indexPath.row] : arrayCity[indexPath.row]
         }
+        myLocationOrNo = false
         prepareSegueNextView(city)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let categoryDelete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+        let categoryDelete = UIContextualAction(style: .destructive, title: "Удалить") { [weak self] _, _, _ in
             if let name = self?.weatherCoreDataArray[indexPath.row].name {
                 let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
                 let itemPredicate = NSPredicate(format: "name MATCHES %@", name)
@@ -146,9 +150,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-//        categoryDelete.image = #imageLiteral(resourceName: "cartm")
-        categoryDelete.image = UIImage(systemName: "clear")
-//        UIImage(systemName: "clear", withConfiguration: .none), for: .normal)
+        categoryDelete.image = #imageLiteral(resourceName: "cartmTwo")
         categoryDelete.backgroundColor = .black
         let swipeActions = UISwipeActionsConfiguration(actions: [categoryDelete])
         return swipeActions
@@ -163,38 +165,15 @@ extension MainViewController: CLLocationManagerDelegate {
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         let city = City("Моя локация", longitude, latitude)
+        myLocationOrNo = true
         prepareSegueNextView(city)
     }
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+        myLocationOrNo = false
         prepareSegueNextView(nil)
     }
 }
 
 
-// поиск по городам
-extension MainViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if !searchText.isEmpty {
-            showOrDisappearSearchBarTwoSelect()
-            filterArrayCity = arrayCity.filter({ (item) -> Bool in
-                return item.name.lowercased().contains(searchText.lowercased())
-            })
-        } else {
-            showOrDisappearSearchBarOneSelect()
-        }
-        reloadTable()
-    }
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        showOrDisappearSearchBarTwoSelect()
-        reloadTable()
-    }
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        showOrDisappearSearchBarOneSelect()
-        reloadTable()
-    }
-    
-
-}
