@@ -50,7 +50,7 @@ class SecondViewController: UIViewController {
     var fullViewOrModal = true
     var myLocation = false
     var uniqueOrNo = true
-
+    var serviceCoreDate = ServiceWorkWithCoreDate()
     var weatherFull: CityWeatherLocation?
     let serviceWorkWithTime = ServiceWorkWithTime()
 
@@ -61,18 +61,19 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         startSetting()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        newWeatherOrNo()
-    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        serviceCoreDate.newWeatherOrNo(nameCity) { [weak self] value in
+            self?.saveWeatherButton.isHidden = value
+            self?.uniqueOrNo = !value
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
         if myLocation && uniqueOrNo {
-            saveNewWeatherInCoreDate()
+            serviceCoreDate.saveNewWeatherInCoreDate(weatherFull, nameCity)
             delegate?.reloadTableView()
         }
     }
-
-    
 
     @IBAction func returnMainView() {
         navigationBackToMainView()
@@ -81,33 +82,9 @@ class SecondViewController: UIViewController {
         navigationBackToMainView()
     }
     @IBAction func saveWeather() {
-        saveNewWeatherInCoreDate()
+        serviceCoreDate.saveNewWeatherInCoreDate(weatherFull, nameCity)
         navigationBackToMainView()
         delegate?.reloadTableView()
-    }
-
-
-    private func saveNewWeatherInCoreDate() {
-        let newWetherToCoreDate = WeatherCoreData(context: ServiceWorkWithCoreDate.context)
-        guard let weatherFull = weatherFull else { return }
-        newWetherToCoreDate.name = nameCity
-        newWetherToCoreDate.background = getBackground(item: weatherFull)
-        newWetherToCoreDate.lon = weatherFull.lon
-        newWetherToCoreDate.lat = weatherFull.lat
-        ServiceWorkWithCoreDate.saveInCoreData()
-    }
-    
-    
-    private func newWeatherOrNo(){
-        let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
-        let itemPredicate = NSPredicate(format: "name MATCHES %@", nameCity)
-        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [itemPredicate])
-        if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
-            if allWeather.count > 0 {
-                saveWeatherButton.isHidden = true
-                uniqueOrNo = false
-            }
-        }
     }
     
     func getLatAndLon(_ city: City?) {
@@ -131,61 +108,14 @@ class SecondViewController: UIViewController {
             demoWeather = true
         }
     }
-
-    private func startSetting() {
-        if demoWeather {
-            stackActivity.isHidden = true
-            collectionMain.isHidden = true
-            mainStackFirst.isHidden = true
-            stackError.isHidden = false
-        }
-        if !fullViewOrModal {
-            closeViewBt.setImage(UIImage(systemName: "clear", withConfiguration: .none), for: .normal)
-        }
-        saveWeatherButton.isHidden = fullViewOrModal
-        stackActivity.alpha = 0.9
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorColor = .white
-        temperatureStackView.addRightBorderWithColor(color: .white, width: 1)
-        stackViewForecast.addBottomBorderWithColor(color: .white, width: 1)
-        stackViewCollectionViewTwo.addBottomBorderWithColor(color: .white, width: 1)
-        stackViewLast.addBottomBorderWithColor(color: .white, width: 1)
-    }
-
-}
-
-// setting weatherLocal
-extension SecondViewController {
-
-    private func fillWetherLocal(weather: CityWeatherLocation) {
-        temperatureLabelMain.text = weather.temperature
-        iconMainWether.image = UIImage(named: weather.current.weather.first!.systemIconNameString)
-        descriptionWeatherLabelMain.text = weather.current.weather.first?.newDescription.firstUppercased
-        dayWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).0
-        timeWetherLabel.text = serviceWorkWithTime.getDateNow(daily: weather.dt).1
-        feelLike.text = weather.current.feelString
-        pressureLb.text = weather.current.pressureString
-        cloudsLb.text = weather.current.cloudsString
-        visibilityLb.text = weather.current.visibilityString
-        humidity.text = weather.current.humidityString
-        sunUpLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunrise, type: true)
-        sunDownLb.text = serviceWorkWithTime.getSunTime(time: weather.current.sunset, type: false)
-    }
-
-    // фон для cell
-    private func getBackground(item: CityWeatherLocation) -> String {
-        let background = BackgroundCell(background: item.daily[0].weather[0].id)
-        return background.imageBackground
-    }
-
     // переход обратно на main view
     private func navigationBackToMainView() {
         dismiss(animated: true, completion: nil)
     }
+
 }
+
+
 
 
 

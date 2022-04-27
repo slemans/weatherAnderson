@@ -25,6 +25,7 @@
 		7FCA8C76281883E800A4E0CD /* SearchBarDelegateMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCA8C75281883E800A4E0CD /* SearchBarDelegateMainView.swift */; };
 		7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */; };
 		7FED2D5727ED042100A89420 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED2D5627ED042100A89420 /* TableViewCell.swift */; };
+		7FF850622819E6700021E1C8 /* ExtensionSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF850612819E6700021E1C8 /* ExtensionSecondView.swift */; };
 		7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFB95B927E9BF42002B01FB /* AppDelegate.swift */; };
 		7FFB95BC27E9BF42002B01FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFB95BB27E9BF42002B01FB /* SceneDelegate.swift */; };
 		7FFB95C127E9BF43002B01FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FFB95BF27E9BF43002B01FB /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		7FCA8C75281883E800A4E0CD /* SearchBarDelegateMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarDelegateMainView.swift; sourceTree = "<group>"; };
 		7FED2D5427EBAE6100A89420 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		7FED2D5627ED042100A89420 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		7FF850612819E6700021E1C8 /* ExtensionSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionSecondView.swift; sourceTree = "<group>"; };
 		7FFB95B627E9BF42002B01FB /* WeatherAnderson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAnderson.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FFB95B927E9BF42002B01FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FFB95BB27E9BF42002B01FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				7FCA8C7128187BB700A4E0CD /* TableViewDelegateSecondView.swift */,
 				7FCA8C7328187C0D00A4E0CD /* CollectionViewDelegateSecondView.swift */,
+				7FF850612819E6700021E1C8 /* ExtensionSecondView.swift */,
 			);
 			path = SecondView;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				7FCA8C7228187BB700A4E0CD /* TableViewDelegateSecondView.swift in Sources */,
 				7F9194B027FB70A6005C1125 /* ServiceWorkWithTime.swift in Sources */,
 				7F2F3ACA27F0E939008D45FA /* ServiceApiManager.swift in Sources */,
+				7FF850622819E6700021E1C8 /* ExtensionSecondView.swift in Sources */,
 				7FFB95DC27EA1F0B002B01FB /* GradientView.swift in Sources */,
 				7FFB95DE27EA2F59002B01FB /* UIView.swift in Sources */,
 				7FCA8C76281883E800A4E0CD /* SearchBarDelegateMainView.swift in Sources */,

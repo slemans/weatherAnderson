@@ -18,4 +18,5 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
         cell.fetchDaily(forWeather: day)
         return cell
     }
+    
 }

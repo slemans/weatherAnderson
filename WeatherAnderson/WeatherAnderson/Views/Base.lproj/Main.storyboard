@@ -327,7 +327,7 @@
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="28j-K6-FMN">
-                                <rect key="frame" x="0.0" y="198" width="414" height="674"/>
+                                <rect key="frame" x="0.0" y="208" width="414" height="664"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="liu-wb-rlh">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1446.5"/>
@@ -818,10 +818,10 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="AEV-sC-zzU"/>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vjO-MV-gNg">
-                                <rect key="frame" x="0.0" y="-46" width="414" height="918"/>
+                                <rect key="frame" x="0.0" y="-1" width="414" height="883"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="tP4-Md-u8c">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="918"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="883"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -840,11 +840,11 @@
                             <constraint firstItem="liu-wb-rlh" firstAttribute="width" secondItem="5yC-hR-Lzn" secondAttribute="width" id="Ldn-xf-Api"/>
                             <constraint firstItem="P2t-0a-9nA" firstAttribute="centerY" secondItem="eO1-GG-B8E" secondAttribute="centerY" id="M0G-Sn-sWR"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="trailing" secondItem="vjO-MV-gNg" secondAttribute="trailing" id="OgF-CF-sbJ"/>
-                            <constraint firstItem="vjO-MV-gNg" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="-90" id="SGE-Hp-R6U"/>
-                            <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="vjO-MV-gNg" secondAttribute="bottom" constant="-30" id="TSR-uh-hMK"/>
+                            <constraint firstItem="vjO-MV-gNg" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="-45" id="SGE-Hp-R6U"/>
+                            <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="vjO-MV-gNg" secondAttribute="bottom" constant="-40" id="TSR-uh-hMK"/>
                             <constraint firstItem="P2t-0a-9nA" firstAttribute="centerX" secondItem="eO1-GG-B8E" secondAttribute="centerX" id="VyU-fN-zBk"/>
                             <constraint firstItem="P2t-0a-9nA" firstAttribute="trailing" secondItem="eO1-GG-B8E" secondAttribute="trailing" id="bDh-ej-beH"/>
-                            <constraint firstItem="28j-K6-FMN" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="154" id="gew-S7-pFL"/>
+                            <constraint firstItem="28j-K6-FMN" firstAttribute="top" secondItem="eO1-GG-B8E" secondAttribute="top" constant="164" id="gew-S7-pFL"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="leading" secondItem="P2t-0a-9nA" secondAttribute="leading" id="qlv-3R-QNG"/>
                             <constraint firstItem="eO1-GG-B8E" firstAttribute="bottom" secondItem="28j-K6-FMN" secondAttribute="bottom" constant="-30" id="rNI-T9-nz8"/>
                             <constraint firstItem="vjO-MV-gNg" firstAttribute="leading" secondItem="eO1-GG-B8E" secondAttribute="leading" id="sqq-wo-38p"/>
@@ -862,7 +862,7 @@
                                 <real key="value" value="1.1000000000000001"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                <real key="value" value="-0.20000000000000001"/>
+                                <real key="value" value="0.0"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>

@@ -23,38 +23,14 @@ extension UIView {
         set { layer.borderColor = newValue?.cgColor }
         get { return layer.borderColor?.UIColor }
     }
-    /// Смещение тени
-    @IBInspectable var shadowOffset: CGSize {
-        set { layer.shadowOffset = newValue }
-        get { return layer.shadowOffset }
-    }
-    /// Прозрачность тени
-    @IBInspectable var shadowOpacity: Float {
-        set { layer.shadowOpacity = newValue }
-        get { return layer.shadowOpacity }
-    }
-    /// Радиус блура тени
-    @IBInspectable var shadowRadius: CGFloat {
-        set { layer.shadowRadius = newValue }
-        get { return layer.shadowRadius }
-    }
-    /// Цвет тени
-    @IBInspectable var shadowColor: UIColor? {
-        set { layer.shadowColor = newValue?.cgColor }
-        get { return layer.shadowColor?.UIColor }
-    }
-    /// Отсекание по границе
-    @IBInspectable var _clipsToBounds: Bool {
-        set { clipsToBounds = newValue }
-        get { return clipsToBounds }
-    }
-
+    // border справа
     func addRightBorderWithColor(color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: self.frame.size.width - width, y: 0, width: width, height: self.frame.size.height)
         self.layer.addSublayer(border)
     }
+    // border снизу
     func addBottomBorderWithColor(color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
