@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
             locationManager.requestLocation()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         loadWeather()
     }
@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
         }
     }
     private func loadWeather() {
-        if let weatherArray = ServiceWorkWithCoreDate.getWeatherArray() {
+        if let weatherArray = ServiceWorkWithCoreDate.shared.getWeatherArray() {
             weatherCoreDataArray = weatherArray
             reloadTable()
         }
@@ -72,23 +72,23 @@ class MainViewController: UIViewController {
     func reloadTable() {
         cityTableView.reloadData()
     }
-    func showOrDisappearSearchBarOneSelect(){
+    func showOrDisappearSearchBarOneSelect() {
         searchBar.showsCancelButton = false
         showCityArrayOrWeather = true
     }
-    func showOrDisappearSearchBarTwoSelect(){
+    func showOrDisappearSearchBarTwoSelect() {
         searchBar.showsCancelButton = true
         showCityArrayOrWeather = false
     }
-    private func startSetting(){
+    private func startSetting() {
         searchBar.searchTextField.textColor = .white
         arrayCity = classArrayCity.arrayCity
     }
-    
-    
+
+
 }
 
-extension MainViewController: ReloadTableWeather{
+extension MainViewController: ReloadTableWeather {
     func reloadTableView() {
         myLocationOrNo = false
         showOrDisappearSearchBarOneSelect()
@@ -122,6 +122,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var city: City!
         if showCityArrayOrWeather {
@@ -140,12 +141,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 let request: NSFetchRequest<WeatherCoreData> = WeatherCoreData.fetchRequest()
                 let itemPredicate = NSPredicate(format: "name MATCHES %@", name)
                 request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [itemPredicate])
-                if let allWeather = try? ServiceWorkWithCoreDate.context.fetch(request) {
+                if let allWeather = try? ServiceWorkWithCoreDate.shared.getContext().fetch(request) {
                     for item in allWeather {
-                        ServiceWorkWithCoreDate.context.delete(item)
+                        ServiceWorkWithCoreDate.shared.getContext().delete(item)
                     }
                     self?.weatherCoreDataArray.remove(at: indexPath.row)
-                    ServiceWorkWithCoreDate.saveInCoreData()
+                    ServiceWorkWithCoreDate.shared.saveInCoreData()
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }

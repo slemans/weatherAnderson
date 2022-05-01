@@ -50,9 +50,11 @@ class SecondViewController: UIViewController {
     var fullViewOrModal = true
     var myLocation = false
     var uniqueOrNo = true
-    var serviceCoreDate = ServiceWorkWithCoreDate()
+    
+    let serviceCoreDate = ServiceWorkWithCoreDate.shared
     var weatherFull: CityWeatherLocation?
-    let serviceWorkWithTime = ServiceWorkWithTime()
+    
+    let serviceWorkWithTime = ServiceWorkWithTime.shared
 
     var weatherSaveCoreDate: WeatherCoreData?
     weak var delegate: ReloadTableWeather?

@@ -34,16 +34,20 @@ struct CityWeatherIcon {
 
 struct BackgroundCell {
     private let code: Int
+    private let dayOrNight: Bool
     var imageBackground: String {
+        let cloud = dayOrNight ? "dayCloud.png" : "nightCloud.png"
+        let clear = dayOrNight ? "dayClear.png" : "nightClear.png"
         switch code {
-            case 200 ... 232: return "dayCloud.png"
-            case 300 ... 321: return "dayCloud.png"
-            case 500 ... 531: return "dayCloud.png"
-            case 600 ... 622: return "dayCloud.png"
-            default: return "dayClear.png"
+            case 200 ... 232: return cloud
+            case 300 ... 321: return cloud
+            case 500 ... 531: return cloud
+            case 600 ... 622: return cloud
+            default: return clear
         }
     }
-    init(background: Int) {
+    init(background: Int, dayOrNightSelect: Bool) {
         code = background
+        dayOrNight = dayOrNightSelect
     }
 }
