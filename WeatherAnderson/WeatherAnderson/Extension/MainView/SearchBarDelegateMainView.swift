@@ -26,6 +26,16 @@ extension MainViewController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        disMisSearchBar()
+    }
+    
+    // скрываю клавиатуру по нажатию на done
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        disMisSearchBar()
+    }
+    
+    private func disMisSearchBar(){
         searchBar.text = ""
         showOrDisappearSearchBarOneSelect()
         reloadTable()

@@ -49,7 +49,7 @@ struct Weather: Codable {
         let icon = CityWeatherIcon(CityWeatherIcon: id)
         return icon.systemIconNameString
     }
-    private let weatherDescription: String
+    let weatherDescription: String
     var newDescription: String {
         let description = weatherDescription.components(separatedBy: " ")
         return description[0]

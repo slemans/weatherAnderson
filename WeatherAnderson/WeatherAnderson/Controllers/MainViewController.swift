@@ -38,11 +38,23 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startSetting()
+        
+
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
     }
 
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if let touch = touches.first as? UITouch{
+//            view.endEditing(true)
+//        }
+//        super.touchesBegan(touches, with: event)
+//    }
+    
+
+   
+    
     override func viewWillAppear(_ animated: Bool) {
         loadWeather()
     }
@@ -75,6 +87,7 @@ class MainViewController: UIViewController {
     func showOrDisappearSearchBarOneSelect() {
         searchBar.showsCancelButton = false
         showCityArrayOrWeather = true
+        view.endEditing(true)
     }
     func showOrDisappearSearchBarTwoSelect() {
         searchBar.showsCancelButton = true
@@ -95,6 +108,31 @@ extension MainViewController: ReloadTableWeather {
         loadWeather()
     }
 }
+
+//extension MainViewController {
+//    private func startKeyboardObserver() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+//                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+//                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        guard let keyboardSize =
+//            (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+//        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+//        cityTableView.contentInset = contentInsets
+//        cityTableView.scrollIndicatorInsets = contentInsets
+//    }
+//
+//    @objc func keyboardWillHide() {
+//        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        cityTableView.contentInset = contentInsets
+//        cityTableView.scrollIndicatorInsets = contentInsets
+//    }
+//
+//}
+
 
 
 

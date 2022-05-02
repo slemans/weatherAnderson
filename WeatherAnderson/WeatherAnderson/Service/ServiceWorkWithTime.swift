@@ -8,29 +8,37 @@
 import UIKit
 
 class ServiceWorkWithTime {
-    
+
     static let shared = ServiceWorkWithTime()
     private init() { }
 
     // get Sun and Moon
     func getSunTime(time: Int?, type: Bool) -> String {
-        guard let time = time else { return " Нет данных " }
+        guard let time = fetchTimeUpAndDownSunAndMoon(time) else { return " Нет данных " }
+        let wordLast = type ? "Восход" : "Закат"
+        return "\(time.0):\(time.1) \n \(wordLast)"
+    }
+
+    // получаю время заката и рассвета
+    private func fetchTimeUpAndDownSunAndMoon(_ time: Int?) -> (Int, Int)? {
+        guard let time = time else { return nil }
         let date = NSDate(timeIntervalSince1970: TimeInterval(time))
         let dateNew = date as Date
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: dateNew)
         let minutes = calendar.component(.minute, from: dateNew)
-        let wordLast = type ? "Восход" : "Закат"
-        return "\(hour):\(minutes) \n \(wordLast)"
+        return (hour, minutes)
     }
 
     // день или ночь
     func fetchTimeDayOrNight(_ time: Current) -> Bool {
-        guard let hour = Int(getDateOnAllDay(time: time)) else { return true }
-        switch hour {
-            case 0 ... 8: return false
-            default: return true
-        }
+        guard let hour = Int(getDateOnAllDay(time: time)),
+              let sunrise = fetchTimeUpAndDownSunAndMoon(time.sunrise)?.0,
+              let sunset = fetchTimeUpAndDownSunAndMoon(time.sunset)?.0 else { return true }
+            switch hour {
+                case sunrise ... sunset: return true
+                default: return false
+            }
     }
 
     // get Time day currently

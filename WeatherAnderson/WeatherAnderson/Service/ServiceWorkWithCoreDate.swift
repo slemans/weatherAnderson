@@ -32,18 +32,22 @@ class ServiceWorkWithCoreDate{
         var array: [WeatherCoreData] = []
         do {
             array = try getContext().fetch(request)
+            
         } catch {
             print("Error fetching data from context: \(error)")
         }
+        
         // костыль для вставки Моя локация в первый индекс
-        var number = 0
-        for (index, item) in array.enumerated(){
-            if item.name == "Моя локация"{
-                number = index
+        if array.count > 0{
+            var number = 0
+            for (index, item) in array.enumerated(){
+                if item.name == "Моя локация"{
+                    number = index
+                }
             }
+            let newItem = array.remove(at: number)
+            array.insert(newItem, at: 0)
         }
-        let newItem = array.remove(at: number)
-        array.insert(newItem, at: 0)
         return array
     }
     

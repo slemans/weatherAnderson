@@ -38,11 +38,11 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var sunUpLb: UILabel!
     @IBOutlet weak var mainStackFirst: UIStackView!
     @IBOutlet weak var collectionMain: UIScrollView!
-    @IBOutlet weak var stackError: UIStackView!
     @IBOutlet weak var stackActivity: UIStackView!
     @IBOutlet weak var saveWeatherButton: UIButton!
     @IBOutlet weak var closeViewBt: UIButton!
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var hourlyWeather: [Current] = []
     var dailyWeather: [Daily] = []
     var demoWeather = false
@@ -53,9 +53,7 @@ class SecondViewController: UIViewController {
     
     let serviceCoreDate = ServiceWorkWithCoreDate.shared
     var weatherFull: CityWeatherLocation?
-    
     let serviceWorkWithTime = ServiceWorkWithTime.shared
-
     var weatherSaveCoreDate: WeatherCoreData?
     weak var delegate: ReloadTableWeather?
 
@@ -65,24 +63,24 @@ class SecondViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        checkNill()
         serviceCoreDate.newWeatherOrNo(nameCity) { [weak self] value in
             self?.saveWeatherButton.isHidden = value
             self?.uniqueOrNo = !value
         }
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         if myLocation && uniqueOrNo {
             serviceCoreDate.saveNewWeatherInCoreDate(weatherFull, nameCity)
             delegate?.reloadTableView()
         }
     }
-
+    
     @IBAction func returnMainView() {
         navigationBackToMainView()
     }
-    @IBAction func buttonReturnBack() {
-        navigationBackToMainView()
-    }
+
     @IBAction func saveWeather() {
         serviceCoreDate.saveNewWeatherInCoreDate(weatherFull, nameCity)
         navigationBackToMainView()
@@ -110,11 +108,6 @@ class SecondViewController: UIViewController {
             demoWeather = true
         }
     }
-    // переход обратно на main view
-    private func navigationBackToMainView() {
-        dismiss(animated: true, completion: nil)
-    }
-
 }
 
 
