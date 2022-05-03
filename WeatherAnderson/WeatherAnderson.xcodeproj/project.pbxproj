@@ -9,10 +9,16 @@
 /* Begin PBXBuildFile section */
 		7F1A331827FECE2D00E5E3E0 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1A331727FECE2D00E5E3E0 /* WeatherTableViewCell.swift */; };
 		7F2F3ACA27F0E939008D45FA /* ServiceApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3AC927F0E939008D45FA /* ServiceApiManager.swift */; };
-		7F2F3AD927F1C51F008D45FA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2F3AD827F1C51F008D45FA /* SwiftyJSON */; };
 		7F2F3ADB27F2069A008D45FA /* CityWeatherCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3ADA27F2069A008D45FA /* CityWeatherCoordinate.swift */; };
 		7F2F3ADD27F24915008D45FA /* StringProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2F3ADC27F24914008D45FA /* StringProtocol.swift */; };
 		7F34DC2D281F33050081EF85 /* FuncAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F34DC2C281F33050081EF85 /* FuncAllCell.swift */; };
+		7F34DC2F282111750081EF85 /* CLLocationManagerDelegateMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F34DC2E282111750081EF85 /* CLLocationManagerDelegateMainView.swift */; };
+		7F34DC31282111FD0081EF85 /* TableViewDelegateMianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F34DC30282111FD0081EF85 /* TableViewDelegateMianView.swift */; };
+		7F34DC332821128A0081EF85 /* ReloadTableWeatherMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F34DC322821128A0081EF85 /* ReloadTableWeatherMainView.swift */; };
+		7F34DC352821132F0081EF85 /* OtherExtensionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F34DC342821132E0081EF85 /* OtherExtensionMainView.swift */; };
+		7F34DC38282114B70081EF85 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F34DC37282114B70081EF85 /* FirstViewController.swift */; };
+		7F34DC3B282115460081EF85 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7F34DC3A282115460081EF85 /* Lottie */; };
+		7F34DC3D282118010081EF85 /* launch.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F34DC3C282118010081EF85 /* launch.json */; };
 		7F7DBF8427F37AB900270B98 /* CityWeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7DBF8327F37AB900270B98 /* CityWeatherLocation.swift */; };
 		7F7DBF8627F3978900270B98 /* CityWeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7DBF8527F3978900270B98 /* CityWeatherIcon.swift */; };
 		7F9073BB28075BB400F20C71 /* ArrayCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9073BA28075BB400F20C71 /* ArrayCity.swift */; };
@@ -44,6 +50,12 @@
 		7F2F3ADA27F2069A008D45FA /* CityWeatherCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherCoordinate.swift; sourceTree = "<group>"; };
 		7F2F3ADC27F24914008D45FA /* StringProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocol.swift; sourceTree = "<group>"; };
 		7F34DC2C281F33050081EF85 /* FuncAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncAllCell.swift; sourceTree = "<group>"; };
+		7F34DC2E282111750081EF85 /* CLLocationManagerDelegateMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerDelegateMainView.swift; sourceTree = "<group>"; };
+		7F34DC30282111FD0081EF85 /* TableViewDelegateMianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegateMianView.swift; sourceTree = "<group>"; };
+		7F34DC322821128A0081EF85 /* ReloadTableWeatherMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadTableWeatherMainView.swift; sourceTree = "<group>"; };
+		7F34DC342821132E0081EF85 /* OtherExtensionMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherExtensionMainView.swift; sourceTree = "<group>"; };
+		7F34DC37282114B70081EF85 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		7F34DC3C282118010081EF85 /* launch.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = launch.json; sourceTree = "<group>"; };
 		7F7DBF8327F37AB900270B98 /* CityWeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherLocation.swift; sourceTree = "<group>"; };
 		7F7DBF8527F3978900270B98 /* CityWeatherIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherIcon.swift; sourceTree = "<group>"; };
 		7F9073BA28075BB400F20C71 /* ArrayCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayCity.swift; sourceTree = "<group>"; };
@@ -76,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F2F3AD927F1C51F008D45FA /* SwiftyJSON in Frameworks */,
+				7F34DC3B282115460081EF85 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +140,22 @@
 			path = AllTablleCell;
 			sourceTree = "<group>";
 		};
+		7F34DC362821148B0081EF85 /* FirstView */ = {
+			isa = PBXGroup;
+			children = (
+				7F34DC37282114B70081EF85 /* FirstViewController.swift */,
+			);
+			name = FirstView;
+			sourceTree = "<group>";
+		};
+		7F34DC3E28211CA80081EF85 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				7F34DC3C282118010081EF85 /* launch.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		7F9073B928075B9500F20C71 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +187,10 @@
 			isa = PBXGroup;
 			children = (
 				7FCA8C75281883E800A4E0CD /* SearchBarDelegateMainView.swift */,
+				7F34DC2E282111750081EF85 /* CLLocationManagerDelegateMainView.swift */,
+				7F34DC30282111FD0081EF85 /* TableViewDelegateMianView.swift */,
+				7F34DC322821128A0081EF85 /* ReloadTableWeatherMainView.swift */,
+				7F34DC342821132E0081EF85 /* OtherExtensionMainView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -192,12 +224,13 @@
 		7FFB95B827E9BF42002B01FB /* WeatherAnderson */ = {
 			isa = PBXGroup;
 			children = (
+				7F34DC3E28211CA80081EF85 /* Animations */,
 				7F9073B928075B9500F20C71 /* Constants */,
 				7F2F3AC827F0E834008D45FA /* Service */,
 				7FFB95DA27EA1EF0002B01FB /* Extension */,
 				7FFB95D027E9C02D002B01FB /* Models */,
-				7FFB95D127E9C039002B01FB /* Controllers */,
 				7FFB95D327E9C054002B01FB /* Views */,
+				7FFB95D127E9C039002B01FB /* Controllers */,
 				7FFB95D427E9C05D002B01FB /* AppDelegat */,
 				7FFB95D527E9C066002B01FB /* Resources */,
 				7FFB95CA27E9BF48002B01FB /* Info.plist */,
@@ -220,6 +253,7 @@
 		7FFB95D127E9C039002B01FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7F34DC362821148B0081EF85 /* FirstView */,
 				7F9073BC2808727D00F20C71 /* MainView */,
 				7F1A331327FE286500E5E3E0 /* SecondView */,
 			);
@@ -280,7 +314,7 @@
 			);
 			name = WeatherAnderson;
 			packageProductDependencies = (
-				7F2F3AD827F1C51F008D45FA /* SwiftyJSON */,
+				7F34DC3A282115460081EF85 /* Lottie */,
 			);
 			productName = WeatherAnderson;
 			productReference = 7FFB95B627E9BF42002B01FB /* WeatherAnderson.app */;
@@ -311,7 +345,7 @@
 			);
 			mainGroup = 7FFB95AD27E9BF42002B01FB;
 			packageReferences = (
-				7F2F3AD727F1C51F008D45FA /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				7F34DC39282115460081EF85 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 7FFB95B727E9BF42002B01FB /* Products */;
 			projectDirPath = "";
@@ -329,6 +363,7 @@
 			files = (
 				7FFB95C927E9BF48002B01FB /* LaunchScreen.storyboard in Resources */,
 				7FFB95C627E9BF48002B01FB /* Assets.xcassets in Resources */,
+				7F34DC3D282118010081EF85 /* launch.json in Resources */,
 				7FFB95C127E9BF43002B01FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F34DC2F282111750081EF85 /* CLLocationManagerDelegateMainView.swift in Sources */,
 				7F9073BE2808729B00F20C71 /* MainViewController.swift in Sources */,
 				7FFB95BA27E9BF42002B01FB /* AppDelegate.swift in Sources */,
 				7F2F3ADD27F24915008D45FA /* StringProtocol.swift in Sources */,
@@ -354,14 +390,18 @@
 				7FCA8C76281883E800A4E0CD /* SearchBarDelegateMainView.swift in Sources */,
 				7FED2D5527EBAE6100A89420 /* CollectionViewCell.swift in Sources */,
 				7F9073C02808784F00F20C71 /* CityTableViewCell.swift in Sources */,
+				7F34DC38282114B70081EF85 /* FirstViewController.swift in Sources */,
+				7F34DC31282111FD0081EF85 /* TableViewDelegateMianView.swift in Sources */,
 				7F34DC2D281F33050081EF85 /* FuncAllCell.swift in Sources */,
 				7FFB95D927EA196C002B01FB /* SecondViewController.swift in Sources */,
+				7F34DC352821132F0081EF85 /* OtherExtensionMainView.swift in Sources */,
 				7FFB95C427E9BF43002B01FB /* WeatherAnderson.xcdatamodeld in Sources */,
 				7FFB95BC27E9BF42002B01FB /* SceneDelegate.swift in Sources */,
 				7F7DBF8427F37AB900270B98 /* CityWeatherLocation.swift in Sources */,
 				7F7DBF8627F3978900270B98 /* CityWeatherIcon.swift in Sources */,
 				7F1A331827FECE2D00E5E3E0 /* WeatherTableViewCell.swift in Sources */,
 				7F92DEE92804B11000031B32 /* City.swift in Sources */,
+				7F34DC332821128A0081EF85 /* ReloadTableWeatherMainView.swift in Sources */,
 				7F9073BB28075BB400F20C71 /* ArrayCity.swift in Sources */,
 				7F2F3ADB27F2069A008D45FA /* CityWeatherCoordinate.swift in Sources */,
 				7FBF3537280DFF630047CA1A /* ServiceWorkWithCoreDate.swift in Sources */,
@@ -590,21 +630,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7F2F3AD727F1C51F008D45FA /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+		7F34DC39282115460081EF85 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7F2F3AD827F1C51F008D45FA /* SwiftyJSON */ = {
+		7F34DC3A282115460081EF85 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F2F3AD727F1C51F008D45FA /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
+			package = 7F34DC39282115460081EF85 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 

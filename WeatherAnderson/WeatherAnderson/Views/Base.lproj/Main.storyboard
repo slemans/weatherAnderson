@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FYC-Yv-wsK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="u0M-F2-1TK">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -16,11 +16,11 @@
             <objects>
                 <viewController id="S3a-rP-5pM" customClass="MainViewController" customModule="WeatherAnderson" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yus-FU-gc2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="stp-Wg-LNy">
-                                <rect key="frame" x="10" y="88" width="394" height="774"/>
+                                <rect key="frame" x="10" y="44" width="394" height="798"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="I8G-Dv-FSk">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="44.5"/>
@@ -55,10 +55,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dZ9-J9-6iW">
-                                        <rect key="frame" x="0.0" y="95.5" width="394" height="678.5"/>
+                                        <rect key="frame" x="0.0" y="95.5" width="394" height="702.5"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VWa-s3-wY8">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="678.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="702.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityTableViewCell" id="X4S-oG-cgH" customClass="CityTableViewCell" customModule="WeatherAnderson" customModuleProvider="target">
@@ -89,7 +89,7 @@
                                                             <outlet property="label" destination="cXK-44-gMF" id="01S-u6-fOb"/>
                                                         </connections>
                                                     </tableViewCell>
-                                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="weatherTableViewCell" rowHeight="117" id="jAB-uL-MPb" customClass="WeatherTableViewCell" customModule="WeatherAnderson" customModuleProvider="target">
+                                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="weatherTableViewCell" rowHeight="117" id="jAB-uL-MPb" customClass="WeatherTableViewCell" customModule="WeatherAnderson" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="89" width="394" height="117"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jAB-uL-MPb" id="guh-p7-klR">
@@ -894,23 +894,41 @@
             </objects>
             <point key="canvasLocation" x="4471.0144927536239" y="-597.32142857142856"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Wlu-fu-8PA">
+        <!--First View Controller-->
+        <scene sceneID="Iwh-ZR-uGC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FYC-Yv-wsK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3pu-q8-7SU">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <viewController id="u0M-F2-1TK" customClass="FirstViewController" customModule="WeatherAnderson" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xuv-11-Y8h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loE-cw-a2g" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="107" y="353" width="200" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="LB6-pj-jl1"/>
+                                    <constraint firstAttribute="width" constant="200" id="oI4-O0-hYQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="launch"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Tdl-7T-L53"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="loE-cw-a2g" firstAttribute="centerY" secondItem="Tdl-7T-L53" secondAttribute="centerY" id="2cm-rV-rUq"/>
+                            <constraint firstItem="loE-cw-a2g" firstAttribute="centerX" secondItem="Tdl-7T-L53" secondAttribute="centerX" id="wXp-cH-Pmf"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <segue destination="S3a-rP-5pM" kind="relationship" relationship="rootViewController" id="bAB-VD-9lT"/>
+                        <outlet property="launchAnimated" destination="loE-cw-a2g" id="UJf-JA-GKq"/>
+                        <segue destination="S3a-rP-5pM" kind="show" identifier="toMainView" id="Dbl-r0-nqm"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vdI-c3-0xR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="juO-8e-rRK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2652.1739130434785" y="-596.65178571428567"/>
+            <point key="canvasLocation" x="2738" y="-597"/>
         </scene>
     </scenes>
     <resources>
@@ -930,6 +948,9 @@
         <namedColor name="backgraund">
             <color red="0.10980392156862745" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

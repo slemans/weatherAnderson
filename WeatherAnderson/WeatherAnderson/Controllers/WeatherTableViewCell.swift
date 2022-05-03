@@ -16,7 +16,6 @@ class WeatherTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectedBackgroundView = newSelectStyleCell()
     }
 
     func fetchAndPutUI(_ weather: WeatherCoreData) {
@@ -24,15 +23,6 @@ class WeatherTableViewCell: UITableViewCell {
         getTemperatureLb(weather.lat, weather.lon)
     }
 
-    private func newSelectStyleCell() -> UIView {
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7047825491)
-        bgColorView.borderColor = .white
-        bgColorView.borderWidth = 1.0
-        bgColorView.cornerRadius = 10
-        return bgColorView
-    }
-    
     private func getTemperatureLb(_ lat: Double, _ lon: Double) {
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {
@@ -46,7 +36,6 @@ class WeatherTableViewCell: UITableViewCell {
             }
         }
     }
-
 }
 
 

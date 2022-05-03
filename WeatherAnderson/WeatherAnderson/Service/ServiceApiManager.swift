@@ -6,7 +6,6 @@
 //
 import CoreLocation
 import Foundation
-import SwiftyJSON
 
 class ServiceApiManager {
     static let shared = ServiceApiManager()

@@ -27,7 +27,7 @@ extension SecondViewController {
     
     // создается алерт
     func createAlert(){
-        let alert = UIAlertController(title: "Что то пошло не так", message: "Мы не смогли получить данные, попробуйте поиск по городу", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Что то пошло не так", message: "Мы не смогли получить ваши координаты, попробуйте поиск по городу", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Перейти", style: .default, handler: { [weak self] UIAlertAction in
             self?.navigationBackToMainView()
         }))
